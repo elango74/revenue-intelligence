@@ -3007,7 +3007,7 @@ window.SPENDNEST_BUNDLE = {
         "Sales Coaching",
         "Do Not Pursue / Opt-Out"
       ],
-      "route_reason": "Cold outbound call met strong objection to unsolicited work-number outreach; prospect stated processes are already automated.",
+      "route_reason": "Cold call met strong objection to unsolicited work-number outreach; prospect stated finance processes are already automated.",
       "summary": "Arun cold-called Pranav regarding a partnership with Harborlight Advisory. Pranav objected to being cold-called on his work number via networking outreach and stated their finance processes are already highly automated.",
       "evidence": [
         {
@@ -3020,8 +3020,8 @@ window.SPENDNEST_BUNDLE = {
         }
       ],
       "not_established": "Does not establish which software Harborlight Advisory uses or whether marketing had valid opt-in consent.",
-      "next_steps": "Suppress Pranav's number from outbound lists. Coach Arun to answer 'Why are you calling?' directly rather than deflecting.",
-      "owner": "Arun (Call Rep)"
+      "next_steps": "Suppress Pranav's number from outbound lists. Coach Arun to answer 'Why are you calling?' directly on the first ask.",
+      "owner": "Arun (Sales Representative)"
     },
     "C02": {
       "entity": "Fernhaven Group (Kavya / Leela)",
@@ -3029,16 +3029,16 @@ window.SPENDNEST_BUNDLE = {
         "Gatekeeper / Voicemail"
       ],
       "route_reason": "Receptionist screening call only; target prospect (Leela) was out of office and call transferred to voicemail.",
-      "summary": "Caller reached receptionist Kavya at Fernhaven Group asking for Leela. Leela was not in the office, and the caller asked to be put through to her voicemail.",
+      "summary": "Caller reached receptionist Kavya at Fernhaven Group asking for Leela. Leela was not in the office today, and the caller asked to be transferred to her voicemail mailbox.",
       "evidence": [
         {
           "ref": "C02 (4b870624-8aad-5315-a60e-0db95981cf99)",
           "quote": "It looks as though she isn't in the office today. Would you like to leave a message with me, or would you prefer her voicemail?"
         }
       ],
-      "not_established": "Challenges any upstream 'is_conversation=true' label: connected to a receptionist, not the decision-maker, and no voicemail text is captured.",
+      "not_established": "Challenges upstream 'is_conversation=true' classification: connected only to receptionist, not the target decision-maker.",
       "next_steps": "Retry Leela on a subsequent business day.",
-      "owner": "Assigned Call Rep"
+      "owner": "Assigned Sales Representative"
     },
     "C03": {
       "entity": "Milan (Developer API Access)",
@@ -3059,8 +3059,8 @@ window.SPENDNEST_BUNDLE = {
         }
       ],
       "not_established": "Does not establish Milan's exact budget ceiling or whether his engineering team still requires API access.",
-      "next_steps": "Send email with subject 'Developer access and event notifications \u2014 follow-up' and call Milan back on Monday or Tuesday when indoors.",
-      "owner": "Kiran (Call Rep)"
+      "next_steps": "Send email with subject 'Developer access and event notifications \u2014 follow-up' and call Milan back on Monday or Tuesday earlier when indoors.",
+      "owner": "Kiran (Sales Representative)"
     },
     "C04": {
       "entity": "Lanternpath Media (Ritesh)",
@@ -3082,7 +3082,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "No two-way human conversation occurred (automated screening prompt + voicemail). Does not establish whether Ritesh read the resent email.",
       "next_steps": "Monitor for Ritesh's callback or follow up on the corrected email thread.",
-      "owner": "Arun (Call Rep)"
+      "owner": "Arun (Sales Representative)"
     },
     "C05": {
       "entity": "Multi-Store Prospect (StoreHarbor user)",
@@ -3091,7 +3091,7 @@ window.SPENDNEST_BUNDLE = {
         "Competitive Intelligence"
       ],
       "route_reason": "Prospect already uses StoreHarbor and other tools for store expenses and vendor payments, but requested a presentation deck via email.",
-      "summary": "Meera pitched SpendNest's store cards, instant-payment budgets, and vendor bill approvals. The prospect confirmed they already have those capabilities via StoreHarbor and other providers, but asked Meera to email a presentation for future consideration.",
+      "summary": "Meera pitched SpendNest's store cards, instant-payment budgets, and vendor bill approvals. The prospect confirmed they already have those capabilities via StoreHarbor and other providers, but asked Meera to email a presentation to contact05@example.com for future consideration.",
       "evidence": [
         {
           "ref": "C05 (75a6b94f-7717-5cfb-9e41-0acc94415e17)",
@@ -3104,7 +3104,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "No active buying project or dissatisfaction with StoreHarbor is established.",
       "next_steps": "Email presentation deck to contact05@example.com and log StoreHarbor as incumbent competitor.",
-      "owner": "Meera (Call Rep)"
+      "owner": "Meera (Sales Representative)"
     },
     "C06": {
       "entity": "Mr Nikhil (120+ Store Retail/Distribution)",
@@ -3121,8 +3121,8 @@ window.SPENDNEST_BUNDLE = {
         }
       ],
       "not_established": "Does not establish which ERP/business management platform Nikhil's company uses.",
-      "next_steps": "Update CRM to prevent duplicate cold calls from other reps. Coach Ravi not to pitch a redundant feature ('With our cards... we provide similar visibility') after a prospect has already closed the conversation.",
-      "owner": "Ravi (Call Rep)"
+      "next_steps": "Update CRM to prevent duplicate cold calls from other reps. Coach Ravi not to pitch a redundant feature after a prospect has already closed the conversation.",
+      "owner": "Ravi (Sales Representative)"
     },
     "C07": {
       "entity": "Willowbank Advisory (Mr Aditya)",
@@ -3144,7 +3144,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "Does not establish monthly client referral volume or specific overseas jurisdictions.",
       "next_steps": "Send partnership proposal via chat app to Aditya's number and call back on Monday.",
-      "owner": "Dev (Call Rep)"
+      "owner": "Dev (Sales Representative)"
     },
     "C08": {
       "entity": "Mr Raghav (Multi-Location Fulfilment)",
@@ -3161,7 +3161,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "Does not establish the colleague's name, ERP system, or timeline.",
       "next_steps": "Send proposal to contact08@example.com explicitly referencing the conversation with Mr Raghav.",
-      "owner": "Meera (Call Rep)"
+      "owner": "Meera (Sales Representative)"
     },
     "C09": {
       "entity": "Mr Vedant & Mr Rishabh (~130 Stores)",
@@ -3183,7 +3183,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "Does not establish whether their internal software has gaps in payment execution.",
       "next_steps": "Reach out to Business Head Mr Rishabh via professional networking WITHOUT mentioning Mr Vedant's name. Highlight Meera's good practice of asking permission before name-dropping.",
-      "owner": "Meera (Call Rep)"
+      "owner": "Meera (Sales Representative)"
     },
     "C10": {
       "entity": "Mr Aniket (Ex-Meadowbrick, now Manufacturing)",
@@ -3205,7 +3205,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "Does not establish the name of Mr Aniket's new manufacturing employer.",
       "next_steps": "Update CRM that Aniket left Meadowbrick; send concise manufacturing/AP brief via messaging app; DO NOT call Monday/Tuesday. Coach Meera not to push for a calendar slot right after a prospect says 'I will get back to you.'",
-      "owner": "Meera (Call Rep)"
+      "owner": "Meera (Sales Representative)"
     },
     "M01": {
       "entity": "Harborpath Advisory (Partner A)",
@@ -3231,7 +3231,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "Does not establish signed memorandum completion or projected referral count.",
       "next_steps": "Send partner memorandum, written commercial & customer pricing terms, KYB checklist (noting bank-transfer-only funding), and unique referral link + shared tracking sheet; connect Partner A with marketing for podcast.",
-      "owner": "Team member A (SpendNest)"
+      "owner": "SpendNest Team Member A"
     },
     "M02": {
       "entity": "LedgerBridge (Supplier A - E-Invoicing Vendor)",
@@ -3256,7 +3256,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "EUR 2,600\u20136,500 is a vendor cost to SpendNest, NOT sales revenue. Management has not yet approved a hard Q4 commitment.",
       "next_steps": "Receive volume template from Supplier A; populate AP actuals vs AR estimates separately; test LedgerBridge sandbox API; hold short pricing explanation call before internal management briefing.",
-      "owner": "Team member A & Team member B (SpendNest Strategy/Product) + Supplier A"
+      "owner": "SpendNest Strategy & Product Team + Supplier A"
     },
     "M03": {
       "entity": "Asterloom Systems (Customer A & B)",
@@ -3286,7 +3286,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "CFO approval is not established; vendor payments (~INR 26\u201339 lakh/mo rough guess in Turn 34) are explicitly out of current scope (Turn 3).",
       "next_steps": "Send transparent written proposal separating INR 26,000 annual subscription, INR 13,000 integration setup, and optional reimbursement module pricing. Coach rep to always separate one-time setup fees from recurring quotes upfront.",
-      "owner": "Team member A (SpendNest)"
+      "owner": "SpendNest Team Member A"
     },
     "M04": {
       "entity": "Cedarwave Distribution (Customer A & B)",
@@ -3316,7 +3316,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "Does not establish whether Cedarwave's already-issued bank credit cards qualify for the transaction feed or whether bank-card accounting reconciliation works.",
       "next_steps": "Confirm with programme/product team whether existing bank credit cards can join the transaction feed and sync to accounting; schedule a guided admin session to reorganize users across departments.",
-      "owner": "Team member A (SpendNest)"
+      "owner": "SpendNest Team Member A"
     },
     "M06": {
       "entity": "Mapletrail Services (Customer A - Branch Finance)",
@@ -3342,7 +3342,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "Invoice counts (390\u2013520/mo) are unverified conversational estimates (Turn 16); Customer A is a local branch user, not the central finance buyer (Turn 6-7, 25).",
       "next_steps": "Send AR collections, expense/payables, and security/compliance certification materials. Coach rep to map the path to the 65-person central finance office that controls ERP and payables.",
-      "owner": "Team member A (SpendNest)"
+      "owner": "SpendNest Team Member A"
     },
     "M07": {
       "entity": "Willowfield Trust (Customer A)",
@@ -3372,7 +3372,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "In Revision 1 (01_initial.json), transcript turns were empty ([]). Revision 2 (02_update.json) establishes the 4 bugs, but root cause and final resolution are still pending engineering confirmation.",
       "next_steps": "Follow up within 1\u20132 hours on stuck 'Processing' reimbursements; file engineering bug tickets with screenshots/steps for description save refresh, Recreate payment upload, and Mark as paid amount carry-forward.",
-      "owner": "Team member A (SpendNest)"
+      "owner": "SpendNest Team Member A"
     },
     "M09": {
       "entity": "Brookmint Holdings & Northkite Equipment (Customer A)",
@@ -3398,7 +3398,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "Does not establish why newly generated invitation tokens are expiring immediately or when Brookmint Holdings will go live.",
       "next_steps": "Escalate Brookmint Holdings expired-token bug to engineering and update Customer A today or by Monday at the latest; Customer A to request separate email identities from internal IT.",
-      "owner": "Team member A (SpendNest) & Customer A"
+      "owner": "SpendNest Team Member A & Customer A"
     },
     "M10": {
       "entity": "Internal Billing Walkthrough (Team members A, B, C)",
@@ -3423,7 +3423,7 @@ window.SPENDNEST_BUNDLE = {
       ],
       "not_established": "Internal training example amounts (e.g. INR 6,240 invoice / INR 6,110 wallet) are hypothetical training examples, not customer records.",
       "next_steps": "Team member A to request back-office super-admin access for Team member B before the next training session.",
-      "owner": "Team member A (Internal Trainer)"
+      "owner": "SpendNest Internal Trainer"
     }
   }
 };

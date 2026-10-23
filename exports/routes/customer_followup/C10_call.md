@@ -15,8 +15,8 @@ Meera called Mr Aniket about Meadowbrick, but he had moved to a manufacturing fi
 
 ## 3. What the Evidence Does Not Establish & Label Audit
 - **Uncertainty / Boundaries**: Does not establish the name of Mr Aniket's new manufacturing employer.
-- **Upstream Label Audit**: Source-reported observed_outcome='follow_up' inspected against transcript evidence.
+- **Upstream Label Audit**: Source-reported is_connected=True, is_conversation=True, observed_outcome='follow_up' verified against 2-way transcript.
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Update CRM that Aniket left Meadowbrick; send concise manufacturing/AP brief via messaging app; DO NOT call Monday/Tuesday. Coach Meera not to push for a calendar slot right after a prospect says 'I will get back to you.'
-- **Stated Owner**: Meera (Call Rep)
+- **Stated Owner**: Meera (Sales Representative)

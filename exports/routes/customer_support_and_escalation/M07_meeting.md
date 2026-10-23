@@ -21,4 +21,4 @@ Live troubleshooting session with existing customer Willowfield Trust covering 4
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Follow up within 1–2 hours on stuck 'Processing' reimbursements; file engineering bug tickets with screenshots/steps for description save refresh, Recreate payment upload, and Mark as paid amount carry-forward.
-- **Stated Owner**: Team member A (SpendNest)
+- **Stated Owner**: SpendNest Team Member A

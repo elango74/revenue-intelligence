@@ -16,8 +16,8 @@ SpendNest strategy/partnerships (Team member A) and product (Team member B) eval
 
 ## 3. What the Evidence Does Not Establish & Label Audit
 - **Uncertainty / Boundaries**: EUR 2,600–6,500 is a vendor cost to SpendNest, NOT sales revenue. Management has not yet approved a hard Q4 commitment.
-- **Upstream Label Audit**: Title looks like a standard discussion, but transcript proves SpendNest is the buyer evaluating a supplier (exclude from sales pipeline).
+- **Upstream Label Audit**: Title looks like a general discussion, but transcript proves SpendNest is the buyer evaluating a supplier (excluded from sales pipeline).
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Receive volume template from Supplier A; populate AP actuals vs AR estimates separately; test LedgerBridge sandbox API; hold short pricing explanation call before internal management briefing.
-- **Stated Owner**: Team member A & Team member B (SpendNest Strategy/Product) + Supplier A
+- **Stated Owner**: SpendNest Strategy & Product Team + Supplier A

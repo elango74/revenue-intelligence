@@ -15,7 +15,7 @@
       "Do Not Pursue / Opt-Out"
     ],
     "manual_override": false,
-    "route_reason": "Cold outbound call met strong objection to unsolicited work-number outreach; prospect stated processes are already automated."
+    "route_reason": "Cold call met strong objection to unsolicited work-number outreach; prospect stated finance processes are already automated."
   },
   "review_state": {
     "intake_status": "Ready for Review",
@@ -29,7 +29,7 @@
       "Sales Coaching",
       "Do Not Pursue / Opt-Out"
     ],
-    "route_reason": "Cold outbound call met strong objection to unsolicited work-number outreach; prospect stated processes are already automated.",
+    "route_reason": "Cold call met strong objection to unsolicited work-number outreach; prospect stated finance processes are already automated.",
     "summary": "Arun cold-called Pranav regarding a partnership with Harborlight Advisory. Pranav objected to being cold-called on his work number via networking outreach and stated their finance processes are already highly automated.",
     "evidence": [
       {
@@ -42,9 +42,9 @@
       }
     ],
     "not_established": "Does not establish which software Harborlight Advisory uses or whether marketing had valid opt-in consent.",
-    "next_steps": "Suppress Pranav's number from outbound lists. Coach Arun to answer 'Why are you calling?' directly rather than deflecting.",
-    "owner": "Arun (Call Rep)",
-    "label_audit": "Source-reported observed_outcome='uninterested' inspected against transcript evidence."
+    "next_steps": "Suppress Pranav's number from outbound lists. Coach Arun to answer 'Why are you calling?' directly on the first ask.",
+    "owner": "Arun (Sales Representative)",
+    "label_audit": "Source-reported is_connected=True, is_conversation=True, observed_outcome='uninterested' verified against 2-way transcript."
   },
   "source_record": {
     "record_ref": "C01",
@@ -81,6 +81,7 @@
       "transcript": "Hello, Pranav here. Hi Pranav, Arun calling from SpendNest. I wanted to ask about Harborlight Advisory. Sorry, who is this? Arun from SpendNest. I was hoping to discuss Harborlight Advisory with you. Why are you calling? We work with outsourced finance leadership firms and\u2014no, I asked why you have called me. Right, I wanted to understand whether a partnership might be relevant. I don't know how I ended up on your list. I didn't ask for this call, and I'm not interested. This number is for my work, not for people to sell things to me. I understand. This is business outreach, and we were hoping to\u2014it's still a cold call, isn't it? Yes, it is. Then where did you find my details? Through a professional networking outreach programme; that's how we obtained the contact information. I realise this was unexpected and that you aren't happy about being contacted. If you are willing\u2014just briefly, what does your company actually do? We partner with firms providing part-time finance leadership and look at ways to automate their finance operations. Our service can help with that. Our processes are already very automated. We have a fairly advanced setup, so I don't think this is something we need. Thanks anyway. All right, thank you for hearing me out. Goodbye."
     },
     "transcript_payload": null,
-    "applied_revision": 1
+    "applied_revision": 1,
+    "last_batch_id": "initial-001"
   }
 }

@@ -20,4 +20,4 @@ Onboarding and support session for a customer managing two entities: Northkite E
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Escalate Brookmint Holdings expired-token bug to engineering and update Customer A today or by Monday at the latest; Customer A to request separate email identities from internal IT.
-- **Stated Owner**: Team member A (SpendNest) & Customer A
+- **Stated Owner**: SpendNest Team Member A & Customer A

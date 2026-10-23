@@ -15,8 +15,8 @@ Meera called Mr Vedant (~130 stores). They built internal expense software, thou
 
 ## 3. What the Evidence Does Not Establish & Label Audit
 - **Uncertainty / Boundaries**: Does not establish whether their internal software has gaps in payment execution.
-- **Upstream Label Audit**: Source-reported observed_outcome='referred' inspected against transcript evidence.
+- **Upstream Label Audit**: Source-reported is_connected=True, is_conversation=True, observed_outcome='referred' verified against 2-way transcript.
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Reach out to Business Head Mr Rishabh via professional networking WITHOUT mentioning Mr Vedant's name. Highlight Meera's good practice of asking permission before name-dropping.
-- **Stated Owner**: Meera (Call Rep)
+- **Stated Owner**: Meera (Sales Representative)

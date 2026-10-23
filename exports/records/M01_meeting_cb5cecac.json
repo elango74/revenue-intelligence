@@ -47,7 +47,7 @@
     ],
     "not_established": "Does not establish signed memorandum completion or projected referral count.",
     "next_steps": "Send partner memorandum, written commercial & customer pricing terms, KYB checklist (noting bank-transfer-only funding), and unique referral link + shared tracking sheet; connect Partner A with marketing for podcast.",
-    "owner": "Team member A (SpendNest)",
+    "owner": "SpendNest Team Member A",
     "label_audit": "Source recording_status='recorded', summary_status='failed' (upstream summary withheld by assessment)."
   },
   "source_record": {
@@ -247,6 +247,7 @@
       ],
       "unavailable_reason": null
     },
-    "applied_revision": 1
+    "applied_revision": 1,
+    "last_batch_id": "initial-001"
   }
 }

@@ -20,4 +20,4 @@ Discovery conversation with a branch finance manager at Mapletrail Services (65 
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Send AR collections, expense/payables, and security/compliance certification materials. Coach rep to map the path to the 65-person central finance office that controls ERP and payables.
-- **Stated Owner**: Team member A (SpendNest)
+- **Stated Owner**: SpendNest Team Member A

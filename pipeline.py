@@ -448,6 +448,8 @@ class RevenueIntelligencePipeline:
         self.write_browser_bundle()
         self.write_slides_and_readme()
 
+    run_replay_sequence = run_all
+
     def export_all(self):
         if os.path.exists(self.output_dir):
             shutil.rmtree(self.output_dir)
@@ -637,4 +639,5 @@ Processes multi-source calls and meetings, tracks revisions, preserves manual ro
 
 if __name__ == "__main__":
     pipeline = RevenueIntelligencePipeline()
-    pipeline.run_replay_sequence()
+    pipeline.run_all()
+

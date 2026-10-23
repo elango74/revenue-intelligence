@@ -47,7 +47,7 @@
     ],
     "not_established": "Invoice counts (390\u2013520/mo) are unverified conversational estimates (Turn 16); Customer A is a local branch user, not the central finance buyer (Turn 6-7, 25).",
     "next_steps": "Send AR collections, expense/payables, and security/compliance certification materials. Coach rep to map the path to the 65-person central finance office that controls ERP and payables.",
-    "owner": "Team member A (SpendNest)",
+    "owner": "SpendNest Team Member A",
     "label_audit": "Source recording_status='recorded', summary_status='pending' (upstream summary withheld by assessment)."
   },
   "source_record": {
@@ -277,6 +277,7 @@
       ],
       "unavailable_reason": null
     },
-    "applied_revision": 1
+    "applied_revision": 1,
+    "last_batch_id": "initial-001"
   }
 }

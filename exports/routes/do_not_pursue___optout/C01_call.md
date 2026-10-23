@@ -15,8 +15,8 @@ Arun cold-called Pranav regarding a partnership with Harborlight Advisory. Prana
 
 ## 3. What the Evidence Does Not Establish & Label Audit
 - **Uncertainty / Boundaries**: Does not establish which software Harborlight Advisory uses or whether marketing had valid opt-in consent.
-- **Upstream Label Audit**: Source-reported observed_outcome='uninterested' inspected against transcript evidence.
+- **Upstream Label Audit**: Source-reported is_connected=True, is_conversation=True, observed_outcome='uninterested' verified against 2-way transcript.
 
 ## 4. Recommended Next Action & Stated Owner
-- **Next Step**: Suppress Pranav's number from outbound lists. Coach Arun to answer 'Why are you calling?' directly rather than deflecting.
-- **Stated Owner**: Arun (Call Rep)
+- **Next Step**: Suppress Pranav's number from outbound lists. Coach Arun to answer 'Why are you calling?' directly on the first ask.
+- **Stated Owner**: Arun (Sales Representative)

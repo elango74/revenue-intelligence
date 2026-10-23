@@ -15,8 +15,8 @@ Arun passed automated call screening and left a voicemail for Ritesh at Lanternp
 
 ## 3. What the Evidence Does Not Establish & Label Audit
 - **Uncertainty / Boundaries**: No two-way human conversation occurred (automated screening prompt + voicemail). Does not establish whether Ritesh read the resent email.
-- **Upstream Label Audit**: Source-reported observed_outcome='voicemail' inspected against transcript evidence.
+- **Upstream Label Audit**: Upstream marked is_connected=False, is_conversation=False, outcome='voicemail', but transcript shows only gatekeeper/voicemail screening without reaching target prospect.
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Monitor for Ritesh's callback or follow up on the corrected email thread.
-- **Stated Owner**: Arun (Call Rep)
+- **Stated Owner**: Arun (Sales Representative)

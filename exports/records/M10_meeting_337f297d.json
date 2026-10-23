@@ -44,8 +44,8 @@
     ],
     "not_established": "Internal training example amounts (e.g. INR 6,240 invoice / INR 6,110 wallet) are hypothetical training examples, not customer records.",
     "next_steps": "Team member A to request back-office super-admin access for Team member B before the next training session.",
-    "owner": "Team member A (Internal Trainer)",
-    "label_audit": "Internal staff training walkthrough; organizer_email is internal trainer/coordinator, not a sales deal."
+    "owner": "SpendNest Internal Trainer",
+    "label_audit": "Internal staff training walkthrough; organiser is internal trainer/coordinator, not a sales deal."
   },
   "source_record": {
     "record_ref": "M10",
@@ -196,6 +196,7 @@
       ],
       "unavailable_reason": null
     },
-    "applied_revision": 1
+    "applied_revision": 1,
+    "last_batch_id": "initial-001"
   }
 }

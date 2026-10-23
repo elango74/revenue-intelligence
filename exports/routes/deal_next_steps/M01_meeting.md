@@ -20,4 +20,4 @@ Partner onboarding session with Harborpath Advisory covering US virtual accounts
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Send partner memorandum, written commercial & customer pricing terms, KYB checklist (noting bank-transfer-only funding), and unique referral link + shared tracking sheet; connect Partner A with marketing for podcast.
-- **Stated Owner**: Team member A (SpendNest)
+- **Stated Owner**: SpendNest Team Member A

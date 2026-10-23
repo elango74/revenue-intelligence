@@ -44,8 +44,8 @@
     ],
     "not_established": "EUR 2,600\u20136,500 is a vendor cost to SpendNest, NOT sales revenue. Management has not yet approved a hard Q4 commitment.",
     "next_steps": "Receive volume template from Supplier A; populate AP actuals vs AR estimates separately; test LedgerBridge sandbox API; hold short pricing explanation call before internal management briefing.",
-    "owner": "Team member A & Team member B (SpendNest Strategy/Product) + Supplier A",
-    "label_audit": "Title looks like a standard discussion, but transcript proves SpendNest is the buyer evaluating a supplier (exclude from sales pipeline)."
+    "owner": "SpendNest Strategy & Product Team + Supplier A",
+    "label_audit": "Title looks like a general discussion, but transcript proves SpendNest is the buyer evaluating a supplier (excluded from sales pipeline)."
   },
   "source_record": {
     "record_ref": "M02",
@@ -292,6 +292,7 @@
       ],
       "unavailable_reason": null
     },
-    "applied_revision": 1
+    "applied_revision": 1,
+    "last_batch_id": "initial-001"
   }
 }

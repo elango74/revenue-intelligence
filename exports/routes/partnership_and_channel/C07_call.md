@@ -15,8 +15,8 @@ Dev spoke with Mr Aditya at Willowbank Advisory, who confirmed they incorporate 
 
 ## 3. What the Evidence Does Not Establish & Label Audit
 - **Uncertainty / Boundaries**: Does not establish monthly client referral volume or specific overseas jurisdictions.
-- **Upstream Label Audit**: Source-reported observed_outcome='follow_up' inspected against transcript evidence.
+- **Upstream Label Audit**: Source-reported is_connected=True, is_conversation=True, observed_outcome='follow_up' verified against 2-way transcript.
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Send partnership proposal via chat app to Aditya's number and call back on Monday.
-- **Stated Owner**: Dev (Call Rep)
+- **Stated Owner**: Dev (Sales Representative)

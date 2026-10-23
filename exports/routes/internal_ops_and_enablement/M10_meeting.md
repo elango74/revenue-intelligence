@@ -16,8 +16,8 @@ Internal enablement session where Trainer (Team member A) walked Team members B 
 
 ## 3. What the Evidence Does Not Establish & Label Audit
 - **Uncertainty / Boundaries**: Internal training example amounts (e.g. INR 6,240 invoice / INR 6,110 wallet) are hypothetical training examples, not customer records.
-- **Upstream Label Audit**: Internal staff training walkthrough; organizer_email is internal trainer/coordinator, not a sales deal.
+- **Upstream Label Audit**: Internal staff training walkthrough; organiser is internal trainer/coordinator, not a sales deal.
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Team member A to request back-office super-admin access for Team member B before the next training session.
-- **Stated Owner**: Team member A (Internal Trainer)
+- **Stated Owner**: SpendNest Internal Trainer

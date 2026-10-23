@@ -21,4 +21,4 @@ Card programme migration call with existing customer Cedarwave Distribution. Spe
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Confirm with programme/product team whether existing bank credit cards can join the transaction feed and sync to accounting; schedule a guided admin session to reorganize users across departments.
-- **Stated Owner**: Team member A (SpendNest)
+- **Stated Owner**: SpendNest Team Member A

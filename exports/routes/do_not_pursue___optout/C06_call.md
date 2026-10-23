@@ -14,8 +14,8 @@ Ravi cold-called Mr Nikhil (120+ stores). Mr Nikhil stated their store expenses 
 
 ## 3. What the Evidence Does Not Establish & Label Audit
 - **Uncertainty / Boundaries**: Does not establish which ERP/business management platform Nikhil's company uses.
-- **Upstream Label Audit**: Source-reported observed_outcome='uninterested' inspected against transcript evidence.
+- **Upstream Label Audit**: Source-reported is_connected=True, is_conversation=True, observed_outcome='uninterested' verified against 2-way transcript.
 
 ## 4. Recommended Next Action & Stated Owner
-- **Next Step**: Update CRM to prevent duplicate cold calls from other reps. Coach Ravi not to pitch a redundant feature ('With our cards... we provide similar visibility') after a prospect has already closed the conversation.
-- **Stated Owner**: Ravi (Call Rep)
+- **Next Step**: Update CRM to prevent duplicate cold calls from other reps. Coach Ravi not to pitch a redundant feature after a prospect has already closed the conversation.
+- **Stated Owner**: Ravi (Sales Representative)

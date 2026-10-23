@@ -52,7 +52,7 @@
     ],
     "not_established": "In Revision 1 (01_initial.json), transcript turns were empty ([]). Revision 2 (02_update.json) establishes the 4 bugs, but root cause and final resolution are still pending engineering confirmation.",
     "next_steps": "Follow up within 1\u20132 hours on stuck 'Processing' reimbursements; file engineering bug tickets with screenshots/steps for description save refresh, Recreate payment upload, and Mark as paid amount carry-forward.",
-    "owner": "Team member A (SpendNest)",
+    "owner": "SpendNest Team Member A",
     "label_audit": "Source recording_status='recorded', summary_status='stored' (upstream summary withheld by assessment)."
   },
   "source_record": {
@@ -246,6 +246,7 @@
       ],
       "unavailable_reason": null
     },
-    "applied_revision": 2
+    "applied_revision": 2,
+    "last_batch_id": "update-002"
   }
 }

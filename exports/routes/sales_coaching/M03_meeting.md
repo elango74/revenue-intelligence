@@ -21,4 +21,4 @@ Demo and commercial discussion with Asterloom Systems (~65 employees, ~INR 10–
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Send transparent written proposal separating INR 26,000 annual subscription, INR 13,000 integration setup, and optional reimbursement module pricing. Coach rep to always separate one-time setup fees from recurring quotes upfront.
-- **Stated Owner**: Team member A (SpendNest)
+- **Stated Owner**: SpendNest Team Member A

@@ -15,8 +15,8 @@ Kiran followed up with Milan after 5 weeks regarding developer API access and ev
 
 ## 3. What the Evidence Does Not Establish & Label Audit
 - **Uncertainty / Boundaries**: Does not establish Milan's exact budget ceiling or whether his engineering team still requires API access.
-- **Upstream Label Audit**: Source-reported observed_outcome='follow_up' inspected against transcript evidence.
+- **Upstream Label Audit**: Source-reported is_connected=True, is_conversation=True, observed_outcome='follow_up' verified against 2-way transcript.
 
 ## 4. Recommended Next Action & Stated Owner
-- **Next Step**: Send email with subject 'Developer access and event notifications — follow-up' and call Milan back on Monday or Tuesday when indoors.
-- **Stated Owner**: Kiran (Call Rep)
+- **Next Step**: Send email with subject 'Developer access and event notifications — follow-up' and call Milan back on Monday or Tuesday earlier when indoors.
+- **Stated Owner**: Kiran (Sales Representative)

@@ -14,8 +14,8 @@ Meera pitched SpendNest as a payment execution and expense layer alongside exist
 
 ## 3. What the Evidence Does Not Establish & Label Audit
 - **Uncertainty / Boundaries**: Does not establish the colleague's name, ERP system, or timeline.
-- **Upstream Label Audit**: Source-reported observed_outcome='referred' inspected against transcript evidence.
+- **Upstream Label Audit**: Source-reported is_connected=True, is_conversation=True, observed_outcome='referred' verified against 2-way transcript.
 
 ## 4. Recommended Next Action & Stated Owner
 - **Next Step**: Send proposal to contact08@example.com explicitly referencing the conversation with Mr Raghav.
-- **Stated Owner**: Meera (Call Rep)
+- **Stated Owner**: Meera (Sales Representative)

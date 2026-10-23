@@ -51,7 +51,7 @@
     ],
     "not_established": "CFO approval is not established; vendor payments (~INR 26\u201339 lakh/mo rough guess in Turn 34) are explicitly out of current scope (Turn 3).",
     "next_steps": "Send transparent written proposal separating INR 26,000 annual subscription, INR 13,000 integration setup, and optional reimbursement module pricing. Coach rep to always separate one-time setup fees from recurring quotes upfront.",
-    "owner": "Team member A (SpendNest)",
+    "owner": "SpendNest Team Member A",
     "label_audit": "Source recording_status='recorded', summary_status='stored' (upstream summary withheld by assessment)."
   },
   "source_record": {
@@ -299,6 +299,7 @@
       ],
       "unavailable_reason": null
     },
-    "applied_revision": 1
+    "applied_revision": 1,
+    "last_batch_id": "initial-001"
   }
 }

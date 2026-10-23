@@ -27,16 +27,16 @@
       "Gatekeeper / Voicemail"
     ],
     "route_reason": "Receptionist screening call only; target prospect (Leela) was out of office and call transferred to voicemail.",
-    "summary": "Caller reached receptionist Kavya at Fernhaven Group asking for Leela. Leela was not in the office, and the caller asked to be put through to her voicemail.",
+    "summary": "Caller reached receptionist Kavya at Fernhaven Group asking for Leela. Leela was not in the office today, and the caller asked to be transferred to her voicemail mailbox.",
     "evidence": [
       {
         "ref": "C02 (4b870624-8aad-5315-a60e-0db95981cf99)",
         "quote": "It looks as though she isn't in the office today. Would you like to leave a message with me, or would you prefer her voicemail?"
       }
     ],
-    "not_established": "Challenges any upstream 'is_conversation=true' label: connected to a receptionist, not the decision-maker, and no voicemail text is captured.",
+    "not_established": "Challenges upstream 'is_conversation=true' classification: connected only to receptionist, not the target decision-maker.",
     "next_steps": "Retry Leela on a subsequent business day.",
-    "owner": "Assigned Call Rep",
+    "owner": "Assigned Sales Representative",
     "label_audit": "Upstream marked is_connected=True, is_conversation=True, outcome='ooo', but transcript shows only gatekeeper/voicemail screening without reaching target prospect."
   },
   "source_record": {
@@ -74,6 +74,7 @@
       "transcript": "Good morning, you've reached Fernhaven Group. Kavya speaking. How may I help? Hello Kavya. Could I speak with Leela, please? Leela? Let me check whether she is around. Please hold for a moment. Of course, thank you. It looks as though she isn't in the office today. Would you like to leave a message with me, or would you prefer her voicemail? Her voicemail would be fine, thank you. Certainly, I'll put you through to the mailbox now. Thanks for calling. Thank you for your help."
     },
     "transcript_payload": null,
-    "applied_revision": 1
+    "applied_revision": 1,
+    "last_batch_id": "initial-001"
   }
 }

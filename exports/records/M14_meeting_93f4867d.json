@@ -67,6 +67,7 @@
       "turns": [],
       "unavailable_reason": "The notetaker was cancelled before the meeting started."
     },
-    "applied_revision": 1
+    "applied_revision": 1,
+    "last_batch_id": "initial-001"
   }
 }

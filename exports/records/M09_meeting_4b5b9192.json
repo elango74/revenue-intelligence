@@ -47,7 +47,7 @@
     ],
     "not_established": "Does not establish why newly generated invitation tokens are expiring immediately or when Brookmint Holdings will go live.",
     "next_steps": "Escalate Brookmint Holdings expired-token bug to engineering and update Customer A today or by Monday at the latest; Customer A to request separate email identities from internal IT.",
-    "owner": "Team member A (SpendNest) & Customer A",
+    "owner": "SpendNest Team Member A & Customer A",
     "label_audit": "Source recording_status='recorded', summary_status='stored' (upstream summary withheld by assessment)."
   },
   "source_record": {
@@ -271,6 +271,7 @@
       ],
       "unavailable_reason": null
     },
-    "applied_revision": 1
+    "applied_revision": 1,
+    "last_batch_id": "initial-001"
   }
 }

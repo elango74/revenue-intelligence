@@ -51,7 +51,7 @@
     ],
     "not_established": "Does not establish whether Cedarwave's already-issued bank credit cards qualify for the transaction feed or whether bank-card accounting reconciliation works.",
     "next_steps": "Confirm with programme/product team whether existing bank credit cards can join the transaction feed and sync to accounting; schedule a guided admin session to reorganize users across departments.",
-    "owner": "Team member A (SpendNest)",
+    "owner": "SpendNest Team Member A",
     "label_audit": "Source recording_status='recorded', summary_status='stored' (upstream summary withheld by assessment)."
   },
   "source_record": {
@@ -275,6 +275,7 @@
       ],
       "unavailable_reason": null
     },
-    "applied_revision": 1
+    "applied_revision": 1,
+    "last_batch_id": "initial-001"
   }
 }
