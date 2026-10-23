@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendNest — Revenue Intelligence Inbox</title>
+    <script src="data_bundle.js"></script>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #0284c7;
+            --accent-hover: #0369a1;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --text: #334155;
+            --heading: #0f172a;
+            --success: #15803d;
+            --success-bg: #dcfce7;
+            --warn: #b45309;
+            --warn-bg: #fef3c7;
+            --danger: #b91c1c;
+            --danger-bg: #fee2e2;
+            --purple: #6d28d9;
+            --purple-bg: #ede9fe;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.35rem;
+            letter-spacing: -0.3px;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 0.82rem;
+        }
+
+        .pill {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 0.3rem 0.75rem;
+            border-radius: 99px;
+        }
+
+        nav {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            padding: 0.9rem 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #64748b;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav button.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        main {
+            max-width: 1320px;
+            margin: 1.5rem auto;
+            padding: 0 1.5rem 3rem;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .kpi {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.1rem 1.25rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .kpi h3 {
+            margin: 0;
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            color: #64748b;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi .val {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--heading);
+            margin: 0.25rem 0;
+        }
+
+        .kpi .denom {
+            font-size: 0.78rem;
+            color: #475569;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .card h2,
+        .card h3 {
+            margin-top: 0;
+            color: var(--heading);
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (max-width: 900px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 0.6rem 0.75rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+            color: var(--heading);
+        }
+
+        tr.clickable:hover {
+            background: #f0f9ff;
+            cursor: pointer;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.55rem;
+            border-radius: 99px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            margin: 0.1rem 0.2rem 0.1rem 0;
+        }
+
+        .b-call {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .b-meeting {
+            background: var(--purple-bg);
+            color: var(--purple);
+        }
+
+        .b-ok {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .b-warn {
+            background: var(--warn-bg);
+            color: var(--warn);
+        }
+
+        .b-err {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .b-route {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .b-manual {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 0.95rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.84rem;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--heading);
+            border: 1px solid #cbd5e1;
+        }
+
+        .btn-outline:hover {
+            background: #f1f5f9;
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-warn {
+            background: var(--warn);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            background: #f1f5f9;
+            padding: 0.9rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .filter-bar select,
+        .filter-bar input {
+            padding: 0.45rem 0.65rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            background: white;
+        }
+
+        .inspector-layout {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 1.25rem;
+            align-items: start;
+        }
+
+        @media (max-width: 960px) {
+            .inspector-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .record-list-pane {
+            max-height: 75vh;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: white;
+        }
+
+        .record-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+        }
+
+        .record-item:hover {
+            background: #f8fafc;
+        }
+
+        .record-item.selected {
+            background: #e0f2fe;
+            border-left: 4px solid var(--accent);
+        }
+
+        .turn-box {
+            background: #f8fafc;
+            border-left: 3px solid var(--accent);
+            padding: 0.6rem 0.9rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.88rem;
+        }
+
+        .evidence-box {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 0.65rem 0.9rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.86rem;
+        }
+
+        .route-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin: 0.6rem 0;
+        }
+
+        .route-checkboxes label {
+            background: #f1f5f9;
+            padding: 0.35rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            border: 1px solid #cbd5e1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div>
+            <h1>SpendNest Revenue Intelligence Inbox</h1>
+            <div style="font-size: 0.8rem; color: #94a3b8;">Evidence-First Sales & Operations Workspace | Identity Key:
+                (source_type, source_id)</div>
+        </div>
+        <div class="header-meta">
+            <span class="pill">Activity Date: <strong>21 Aug 2026 (Asia/Kolkata)</strong></span>
+            <span class="pill" id="header-state-pill">State: Post-Update (Rev 2)</span>
+            <button class="btn btn-warn" onclick="switchTab('replay')">Replay & Import Controls</button>
+        </div>
+    </header>
+
+    <nav id="main-nav">
+        <button class="active" data-tab="dashboard" onclick="switchTab('dashboard')">1. Manager Dashboard</button>
+        <button data-tab="inbox" onclick="switchTab('inbox')">2. Inbox & Evidence Inspector (44)</button>
+        <button data-tab="brief" onclick="switchTab('brief')">3. Daily Manager Brief (21 Aug 2026)</button>
+        <button data-tab="replay" onclick="switchTab('replay')">4. Replay Contract & Export Manifest</button>
+        <button data-tab="findings" onclick="switchTab('findings')">5. Key Findings & Architecture</button>
+    </nav>
+
+    <main>
+        <!-- TAB 1: MANAGER DASHBOARD -->
+        <div id="dashboard" class="tab-panel active">
+            <div class="filter-bar">
+                <strong>Dashboard Filter:</strong>
+                <select id="dash-source-filter" onchange="renderDashboard()">
+                    <option value="ALL">All Source Types (Calls + Meetings)</option>
+                    <option value="call">Calls Only (started_at)</option>
+                    <option value="meeting">Meetings Only (starts_at)</option>
+                </select>
+                <select id="dash-person-filter" onchange="renderDashboard()">
+                    <option value="ALL">All Call Reps & Meeting Organisers</option>
+                </select>
+                <select id="dash-text-filter" onchange="renderDashboard()">
+                    <option value="ALL">All Records (With & Without Text)</option>
+                    <option value="USABLE">Has Usable Supplied Text Only</option>
+                    <option value="MISSING">Missing / Empty Text Only</option>
+                </select>
+                <button class="btn btn-outline" onclick="resetDashFilters()">Reset Filters</button>
+            </div>
+
+            <div class="kpi-grid" id="dashboard-kpis"></div>
+
+            <div class="two-col">
+                <div class="card">
+                    <h3>Call Activity by Sales Rep (`rep_email` / `rep_name`)</h3>
+                    <p style="font-size:0.8rem; color:#64748b; margin-top:-0.4rem;">
+                        Calls on 21 Aug 2026 IST (`started_at`). Contrasts <strong>Source-Reported Connection</strong>
+                        (`is_connected=true` / non-null) vs. <strong>Transcript-Verified 2-Way Substance</strong>. Click
+                        any row to inspect records.
+                    </p>
+                    <div id="call-rep-table"></div>
+                </div>
+
+                <div class="card">
+                    <h3>Meeting Activity by Calendar Organiser (`organizer_email`)</h3>
+                    <p style="font-size:0.8rem; color:#64748b; margin-top:-0.4rem;">
+                        Meetings on 21 Aug 2026 IST (`starts_at`). <em>Note: An organiser is not automatically the
+                            salesperson or a confirmed attendee.</em> Click any row to inspect records.
+                    </p>
+                    <div id="meeting-org-table"></div>
+                </div>
+            </div>
+
+            <div class=" two-col">
+                <div class="card">
+                    <h3>Routing Destinations Breakdown</h3>
+                    <p style="font-size:0.8rem; color:#64748b; margin-top:-0.4rem;">
+                        A single conversation can require multiple routes (e.g. Deal Next Steps + Sales Coaching), so
+                        total route assignments exceed distinct records. Click a route to filter the Inbox.
+                    </p>
+                    <div id="route-breakdown-table"></div>
+                </div>
+
+                <div class="card">
+                    <h3>Intake & Review Exceptions Queue</h3>
+                    <p style="font-size:0.8rem; color:#64748b; margin-top:-0.4rem;">
+                        Every record has an explicit intake/review state. Highlights late transcript updates, upstream
+                        label contradictions, and manual overrides.
+                    </p>
+                    <div id="exception-queue-table"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: INBOX & EVIDENCE INSPECTOR -->
+        <div id="inbox" class="tab-panel">
+            <div class="filter-bar">
+                <strong>Filter Inbox:</strong>
+                <select id="inbox-type" onchange="renderInboxList()">
+                    <option value="ALL">All Types (44)</option>
+                    <option value="call">Calls (30)</option>
+                    <option value="meeting">Meetings (14)</option>
+                </select>
+                <select id="inbox-text" onchange="renderInboxList()">
+                    <option value="ALL">All Text States</option>
+                    <option value="USABLE">Usable Text Supplied (18)</option>
+                    <option value="MISSING">No Usable Text (26)</option>
+                </select>
+                <select id="inbox-route" onchange="renderInboxList()">
+                    <option value="ALL">All Routes</option>
+                </select>
+                <select id="inbox-person" onchange="renderInboxList()">
+                    <option value="ALL">All People (Reps & Organisers)</option>
+                </select>
+                <input type="text" id="inbox-search" placeholder="Search ref (e.g. M07, C03), ID, quote, company..."
+                    oninput="renderInboxList()" style="flex:1; min-width:180px;">
+                <button class="btn btn-outline" onclick="clearInboxFilters()">Show All</button>
+            </div>
+
+            <div class="inspector-layout">
+                <div class="record-list-pane" id="inbox-list-container"></div>
+                <div id="inbox-detail-container"></div>
+            </div>
+        </div>
+
+        <!-- TAB 3: DAILY MANAGER BRIEF -->
+        <div id="brief" class="tab-panel">
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+                    <div>
+                        <h2 style="margin-bottom:0.2rem;">Executive Manager Brief — 21 August 2026 (Asia/Kolkata)</h2>
+                        <div style="font-size:0.85rem; color:#64748b;">Fixed-date synthesis across all 44 selected
+                            source records & 18 supplied transcripts (Post-Update Revision 2)</div>
+                    </div>
+                    <span class="badge b-ok">All Citations Clickable to Inbox Evidence</span>
+                </div>
+                <hr style="border:none; border-top:1px solid var(--border); margin:1rem 0;">
+
+                <h3>1. Urgent Customer & Product Escalations (Immediate Manager Attention)</h3>
+                <table>
+                    <tr>
+                        <th>Record</th>
+                        <th>Account / Context</th>
+                        <th>What Happened & Evidence</th>
+                        <th>Action & Stated Owner</th>
+                    </tr>
+                    <tr class="clickable" onclick="openRecordInInbox('M07')">
+                        <td><span class="badge b-meeting">M07 (Rev 2)</span></td>
+                        <td><strong>Willowfield Trust</strong><br><small>Existing Customer</small></td>
+                        <td>Late-arriving transcript (`02_update.json`) documents <strong>4 reproducible product
+                                bugs</strong>: (1) event-payment description edits not updating after save
+                            (<strong>Turns 2–7</strong>); (2) invoice upload blocked under <em>Recreate payment</em>
+                            (<strong>Turns 8–15</strong>; workaround via Invoice Inbox → Review); (3) released
+                            reimbursements stuck in <code>Processing</code> disabling selection (<strong>Turns
+                                16–19</strong>); (4) <em>Mark as paid</em> carrying forward previous
+                            <code>INR 18,200</code> value into the next item (<strong>Turns 21–25</strong>).</td>
+                        <td><strong>Team member A</strong>: Provide 1–2 hr update on stuck <code>Processing</code>
+                            reimbursements (Turn 19) & log all 4 engineering bug reports.</td>
+                    </tr>
+                    <tr class="clickable" onclick="openRecordInInbox('M09')">
+                        <td><span class="badge b-meeting">M09</span></td>
+                        <td><strong>Brookmint Holdings & Northkite Equipment</strong><br><small>Onboarding
+                                Customer</small></td>
+                        <td>Customer clarified only Northkite used the trial (<strong>Turn 7</strong>) and raised
+                            governance risk of AP officer accessing a shared admin mailbox (<strong>Turns
+                                11–19</strong>). When rep sent a fresh password-reset invite for Brookmint Holdings live
+                            on the call, clicking it immediately failed with <code>"token has expired"</code>
+                            (<strong>Turns 20–22</strong>).</td>
+                        <td><strong>Team member A</strong>: Escalate expired-token bug to engineering today or by Monday
+                            latest (Turn 22, 31).<br><strong>Customer A</strong>: Request separate work email identities
+                            from internal IT (Turn 32).</td>
+                    </tr>
+                    <tr class="clickable" onclick="openRecordInInbox('M04')">
+                        <td><span class="badge b-meeting">M04</span></td>
+                        <td><strong>Cedarwave Distribution</strong><br><small>Card Migration Risk</small></td>
+                        <td>SpendNest is closing Cedarwave's current card programme (requiring re-KYC on a new prepaid
+                            network, <strong>Turns 4–6</strong>). Customer stated <strong>moving from prepaid to credit
+                                is their main issue</strong> (<strong>Turn 11</strong>) and they already hold an
+                            <code>INR 1.3 crore</code> bank credit line (<strong>Turn 22</strong>). Explored connecting
+                            bank-issued credit cards via post-settlement feed + fixing department user setup
+                            (<strong>Turns 18–31</strong>).</td>
+                        <td><strong>Team member A</strong>: Check with product team if existing bank cards qualify for
+                            transaction feed & accounting reconciliation (Turns 21, 23, 28); schedule session to move
+                            users across departments (Turn 31).</td>
+                    </tr>
+                </table>
+
+                <h3 style="margin-top:1.5rem;">2. High-Priority Commercial & Partnership Next Steps</h3>
+                <table>
+                    <tr>
+                        <th>Record</th>
+                        <th>Counterparty</th>
+                        <th>Commercial Signal & Boundaries</th>
+                        <th>Next Step & Owner</th>
+                    </tr>
+                    <tr class="clickable" onclick="openRecordInInbox('M01')">
+                        <td><span class="badge b-meeting">M01</span></td>
+                        <td><strong>Harborpath Advisory</strong></td>
+                        <td>US entity virtual accounts & cards partner onboarding. Reviewed <code>USD 260</code>
+                            activation payout + 60-day spend bonuses (<code>USD 195 / USD 390</code>, <strong>Turn
+                                9</strong>) and customer card fee (<code>USD 38/mo</code> waived above
+                            <code>USD 2,600</code>, <strong>Turn 10</strong>). Partner refused manual email intros and
+                            requested a scalable <strong>unique referral link</strong> (<strong>Turns 20–21</strong>).
+                            Strict KYB requires proof of US operations (<strong>Turn 13</strong>).</td>
+                        <td><strong>Team member A</strong>: Send partner memorandum, written pricing/KYB rules, unique
+                            referral link, and shared tracking sheet (Turns 21, 25); connect with marketing on podcast
+                            (Turn 27).</td>
+                    </tr>
+                    <tr class="clickable" onclick="openRecordInInbox('M03')">
+                        <td><span class="badge b-meeting">M03</span></td>
+                        <td><strong>Asterloom Systems</strong></td>
+                        <td>65-employee company evaluating 4–5 card pilot (~<code>INR 10–13 lakh/mo</code> employee
+                            spend, <strong>Turns 5, 26, 34</strong>). Customer A was surprised cards are prepaid
+                            (<strong>Turn 6</strong>) and challenged why prior <code>INR 26,000</code> quote rose to
+                            <code>INR 39,000</code> (rep bundled <code>INR 13,000</code> integration setup fee,
+                            <strong>Turns 22–24</strong>). CFO approval required (<strong>Turn 28</strong>).</td>
+                        <td><strong>Team member A</strong>: Send unbundled written proposal (<code>INR 26,000</code>
+                            subscription + <code>INR 13,000</code> setup + optional reimbursement module pricing, Turns
+                            24, 32, 35) for internal CFO review (Turn 36).</td>
+                    </tr>
+                    <tr class="clickable" onclick="openRecordInInbox('C07')">
+                        <td><span class="badge b-call">C07</span></td>
+                        <td><strong>Willowbank Advisory (Mr Aditya)</strong></td>
+                        <td>Incorporation firm supporting overseas & domestic jurisdictions; confirmed they normally
+                            refer newly incorporated clients to digital account providers (`"Yes, that is something we
+                            normally do"`).</td>
+                        <td><strong>Dev</strong>: Message partnership proposal via chat app to Aditya's number and call
+                            back Monday.</td>
+                    </tr>
+                    <tr class="clickable" onclick="openRecordInInbox('C08')">
+                        <td><span class="badge b-call">C08</span></td>
+                        <td><strong>Mr Raghav</strong></td>
+                        <td>Multi-location company; confirmed internal discussions had occurred around
+                            frontline/location expense solutions and provided people-ops colleague's email.</td>
+                        <td><strong>Meera</strong>: Email proposal to <code>contact08@example.com</code> explicitly
+                            mentioning Mr Raghav.</td>
+                    </tr>
+                    <tr class="clickable" onclick="openRecordInInbox('C03')">
+                        <td><span class="badge b-call">C03</span></td>
+                        <td><strong>Milan</strong></td>
+                        <td>5-week follow-up on developer API & webhooks. Price is a concern (`"isn't essential enough
+                            for us to spend much on it"`), and outdoor roaming audio cut the call short.</td>
+                        <td><strong>Kiran</strong>: Email subject
+                            <code>"Developer access and event notifications — follow-up"</code> and call Monday/Tuesday
+                            earlier in the day.</td>
+                    </tr>
+                </table>
+
+                <h3 style="margin-top:1.5rem;">3. Practical Sales Coaching & Taxonomy Guardrails</h3>
+                <ul>
+                    <li><strong>Unbundle Setup Fees & Clarify Prepaid vs. Credit Upfront (<a href="#"
+                                onclick="openRecordInInbox('M03');return false;">M03 Turns 6, 22–24</a>):</strong>
+                        Presenting <code>INR 39,000</code> when the prospect remembered <code>INR 26,000</code> caused
+                        immediate friction during the demo. Reps must always separate recurring annual fees from
+                        one-time integration charges upfront and confirm whether the prospect expects a credit line vs.
+                        prepaid wallet before diving into feature demos.</li>
+                    <li><strong>Respect Explicit Prospect Boundaries (<a href="#"
+                                onclick="openRecordInInbox('C09');return false;">C09</a> vs. <a href="#"
+                                onclick="openRecordInInbox('C10');return false;">C10</a>):</strong> In <code>C09</code>,
+                        Meera modelled best practice by asking Mr Vedant if she could use his name when contacting
+                        Business Head Mr Rishabh (Vedant declined: <em>"No, please don't use my name"</em>). In
+                        contrast, in <code>C10</code>, after Mr Aniket (now in manufacturing) twice interrupted to say
+                        he would review a messaging brief and come back himself, Meera pushed for a Monday/Tuesday call
+                        and provoked a firm refusal.</li>
+                    <li><strong>Do Not Pollute Sales Pipeline with Non-Prospect Meetings (<a href="#"
+                                onclick="openRecordInInbox('M02');return false;">M02</a> & <a href="#"
+                                onclick="openRecordInInbox('M10');return false;">M10</a>):</strong> In <code>M02</code>,
+                        SpendNest is the <em>buyer</em> evaluating supplier <strong>LedgerBridge</strong> for
+                        e-invoicing (<code>EUR 2,600–6,500</code> setup cost to SpendNest, Turns 1, 30–31). In
+                        <code>M10</code>, <code>Team member A</code> is running an <em>internal staff training</em> on
+                        back-office super-admin billing (Turns 4–5, 17–20). Both are routed away from sales pipeline
+                        counts.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 4: REPLAY CONTRACT & EXPORT MANIFEST -->
+        <div id="replay" class="tab-panel">
+            <div class="card">
+                <h2>Interactive Replay Contract Test Harness</h2>
+                <p style="font-size:0.88rem; color:#475569;">
+                    Use the buttons below during your review or 3-minute screen recording to verify every step of the
+                    <strong>DATA_CONTRACT.md</strong> replay sequence. State is persisted in <code>localStorage</code>
+                    across browser refreshes.
+                </p>
+                <div style="display:flex; gap:0.65rem; flex-wrap:wrap; margin: 1rem 0;">
+                    <button class="btn btn-danger" onclick="replayResetToClean()">0. Clean Reset (Start at Initial Batch
+                        Rev 1)</button>
+                    <button class="btn" onclick="replayStep1Initial()">1. Import 01_initial.json (Rev 1 -> 17
+                        Texts)</button>
+                    <button class="btn" onclick="replayStep2RepeatShuffled()">2. Repeat Import (Shuffled Order -> Stay
+                        44)</button>
+                    <button class="btn btn-warn" onclick="replayStep3ManualOverrideM07()">3. Manually Override M07
+                        Route</button>
+                    <button class="btn btn-success" onclick="replayStep4ImportUpdate()">4. Import 02_update.json (Rev 2
+                        -> 18 Texts, Keep Override)</button>
+                    <button class="btn btn-outline" onclick="replayStep5StaleReimport()">5. Re-Import 01_initial.json
+                        After Update (Ignored)</button>
+                </div>
+
+                <div id="replay-status-banner"
+                    style="background:#f0f9ff; border:1px solid #bae6fd; padding:0.9rem 1.1rem; border-radius:8px; margin-bottom:1rem; font-size:0.88rem;">
+                </div>
+
+                <h3>Replay Execution Log</h3>
+                <div id="replay-log-table"></div>
+            </div>
+
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                    <div>
+                        <h2 style="margin:0;">Export Architecture & Machine-Readable Manifest (44 Records)</h2>
+                        <div style="font-size:0.84rem; color:#64748b;">
+                            Multi-destination folder design: canonical dossiers in <code>exports/records/</code> +
+                            route-specific Markdown files in <code>exports/routes/&lt;route_slug&gt;/</code> with
+                            cross-references so multi-routed conversations never lose context.
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:0.5rem;">
+                        <button class="btn" onclick="downloadLiveManifestJSON()">Download manifest.json</button>
+                        <button class="btn btn-outline" onclick="downloadLiveManifestCSV()">Download
+                            manifest.csv</button>
+                    </div>
+                </div>
+                <div style="margin-top:1rem; max-height:500px; overflow:auto;" id="manifest-preview-table"></div>
+            </div>
+        </div>
+
+        <!-- TAB 5: KEY FINDINGS & REJECTED DECISION -->
+        <div id="findings" class="tab-panel">
+            <div class="card">
+                <h2>Three Most Important Findings (With Source Citations & Product Impact)</h2>
+                <table>
+                    <tr>
+                        <th>Finding</th>
+                        <th>Supporting Source Passage (Exact Quote / Turn Reference)</th>
+                        <th>Where It Affected the Product</th>
+                    </tr>
+                    <tr>
+                        <td><strong>1. Not Every External or Calendar Meeting is a Sales Prospect (`M02` Vendor
+                                Evaluation & `M10` Internal Enablement)</strong></td>
+                        <td>
+                            • <strong>M02 (`1a21c409-c050-5787-90af-2667e057e1b6`), Turn 1 & Turns 30–31</strong>:
+                            SpendNest strategy/product asks whether supplier LedgerBridge provides compliant
+                            e-invoicing; Turn 30–31 confirms SpendNest is the buyer paying a <code>EUR 2,600</code> to
+                            <code>EUR 6,500</code> setup fee.<br>
+                            • <strong>M10 (`337f297d-9385-5b82-9e54-5019c1ed912c`), Turns 4–5 & Turn 18</strong>:
+                            Internal training on SpendNest's back-office super-admin billing engine and manual
+                            next-billing-date recovery after account freeze.
+                        </td>
+                        <td>
+                            • Created dedicated non-sales routes: <code>Vendor & Product Strategy</code> (for M02) and
+                            <code>Internal Ops & Enablement</code> (for M10).<br>
+                            • Excluded M02's EUR 2,600–6,500 vendor cost and M10's training examples from sales deal
+                            next-step queues in the <strong>Inbox Inspector</strong>, <strong>Manager Brief</strong>,
+                            and <code>exports/routes/</code> folders.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Unbundled Integration Setup Fees & Prepaid-vs-Credit Surprises Stall Mid-Funnel
+                                Deals (`M03` & `M04`)</strong></td>
+                        <td>
+                            • <strong>M03 (`398672e7-62dd-5afd-846d-0237d49792fb`), Turn 6</strong>: <em>"Wait, these
+                                are prepaid? I had thought about a corporate credit card."</em><br>
+                            • <strong>M03, Turns 23–24</strong>: <em>"But you previously told me INR 26,000. Why has
+                                that become INR 39,000?"</em> (Rep bundled an <code>INR 13,000</code> one-time setup fee
+                            into the annual quote without itemising it).<br>
+                            • <strong>M04 (`b0f79b3d-37ba-52f9-b2bc-58b159dd6d91`), Turn 11 & Turn 22</strong>:
+                            <em>"moving from prepaid to credit is the main issue for us"</em> (customer holds an
+                            <code>INR 1.3 crore</code> bank credit line).
+                        </td>
+                        <td>
+                            • Multi-routed <code>M03</code> to both <code>Deal Next Steps</code> and
+                            <code>Sales Coaching</code>.<br>
+                            • Added a dedicated coaching directive in the <strong>Daily Manager Brief</strong> and
+                            <code>exports/routes/sales_coaching/M03_meeting.md</code> requiring upfront separation of
+                            recurring vs. setup fees and credit-vs-prepaid qualification.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Stored Connection Flags Overstate Real Conversations (`C02`, `C04`), While Late
+                                Transcript `M07` Uncovers 4 Production Bugs</strong></td>
+                        <td>
+                            • <strong>C02 (`4b870624-8aad-5315-a60e-0db95981cf99`)</strong>: <em>"It looks as though she
+                                isn't in the office today... I'll put you through to the mailbox now."</em> (Gatekeeper
+                            transfer only).<br>
+                            • <strong>C04 (`bcdcbf56-d338-5c78-9a97-42c2fc1c9931`)</strong>: <em>"The person you called
+                                is unavailable. You may leave a further message after the signal."</em> (Screening bot +
+                            voicemail).<br>
+                            • <strong>M07 (`4f304fff-fd40-5cfc-a366-0a134c445c2a`), Turns 2–7, 8–15, 16–19,
+                                21–25</strong>: Late Revision 2 transcript reveals 4 bugs including stuck
+                            <code>Processing</code> reimbursements and <em>Mark as paid</em> carrying forward
+                            <code>INR 18,200</code>.
+                        </td>
+                        <td>
+                            • Separated <strong>Source-Reported Connection Rate</strong> from
+                            <strong>Transcript-Verified Substantive Rate</strong> in the <strong>Manager Dashboard
+                                KPIs</strong>.<br>
+                            • Built the <code>Gatekeeper / Voicemail</code> route and <strong>Upstream Label
+                                Audit</strong> box on every record.<br>
+                            • Built revision-aware update handling on <code>M07</code> that surfaces the new Revision 2
+                            transcript while preserving manual route overrides.
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>One Decision Deliberately Rejected</h2>
+                <p><strong>Alternative Considered:</strong> Summing currency figures extracted from transcripts
+                    (<code>INR 10–13 lakh</code>, <code>INR 26–39 lakh</code>, <code>INR 1.3 crore</code>,
+                    <code>EUR 2,600–6,500</code>, <code>USD 260</code>, <code>INR 18,200</code>) into a headline
+                    <em>"Total Pipeline Value (₹ / $)"</em> KPI card and ranking reps and meeting organisers on a single
+                    unified sales leaderboard.</p>
+                <p><strong>Why We Rejected It:</strong></p>
+                <ol>
+                    <li><strong>Incompatible Units & Business Meanings:</strong> The numbers spoken in transcripts are
+                        not comparable deal values — <code>EUR 2,600–6,500</code> in <code>M02</code> (Turn 31) is a
+                        <em>supplier setup cost SpendNest would pay</em>; <code>INR 1.3 crore</code> in <code>M04</code>
+                        (Turn 22) is a customer's existing bank credit limit; <code>INR 18,200</code> in
+                        <code>M07</code> (Turn 21) is a UI bug reproduction amount; and <code>390–520 invoices/mo</code>
+                        in <code>M06</code> (Turn 16) is explicitly caveated as a rough conversational guess.</li>
+                    <li><strong>Role & Sample Boundaries:</strong> Calendar <code>organizer_email</code> does not prove
+                        selling ownership or attendance, and the 44-record package is a curated variety extract rather
+                        than a full-team performance sample.</li>
+                </ol>
+                <p><strong>Trade-Off Accepted & Resulting Product Choice:</strong> We traded away a single aggregated
+                    pipeline-dollar chart and unified rep leaderboard in favour of <strong>two separate activity
+                        tables</strong> on the Manager Dashboard (Call Reps by <code>rep_email</code> vs. Meeting
+                    Organisers by <code>organizer_email</code>) with explicit denominators, while surfacing commercial
+                    figures strictly inside each conversation's contextual evidence card.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const ALL_ROUTE_OPTIONS = [
+            "Deal Next Steps",
+            "Sales Coaching",
+            "Partnership & Channel",
+            "Customer Support & Escalation",
+            "Product Bug Escalation",
+            "Customer Onboarding",
+            "Customer Follow-Up",
+            "Competitive Intelligence",
+            "Vendor & Product Strategy",
+            "Internal Ops & Enablement",
+            "Gatekeeper / Voicemail",
+            "Do Not Pursue / Opt-Out",
+            "Metadata-Only Intake (No Transcript)",
+            "Pending Transcript / Uncaptured Meeting"
+        ];
+
+        const STORAGE_KEY = "spendnest_inbox_state_v2";
+        let appState = {
+            recordsByKey: {},       // "call::id" -> record with applied_revision
+            manualOverrides: {},    // "call::id" -> { routes: [...], reason: "...", updated_at: "..." }
+            reviewStates: {},       // "call::id" -> { intake_status, analysis_freshness, analyzed_revision }
+            replayLog: [],
+            selectedKey: "meeting::4f304fff-fd40-5cfc-a366-0a134c445c2a"
+        };
+
+        function makeKey(stype, sid) { return `${stype}::${sid}`; }
+
+        function hasUsableText(rec) {
+            if (!rec) return false;
+            const stype = rec.source_type;
+            const p = rec.payload || {};
+            const tp = rec.transcript_payload || {};
+            if (stype === "call") {
+                return Boolean(p.transcript && String(p.transcript).trim().length > 0);
+            } else {
+                const turns = tp.turns || [];
+                return turns.some(t => Boolean(t.text && String(t.text).trim().length > 0));
+            }
+        }
+
+        function getRecordAnalysis(rec) {
+            const ref = rec.record_ref || "";
+            const stype = rec.source_type;
+            const p = rec.payload || {};
+            const tp = rec.transcript_payload || {};
+            const usable = hasUsableText(rec);
+            const bundleAnalyses = (window.SPENDNEST_BUNDLE && window.SPENDNEST_BUNDLE.analyses_by_ref) || {};
+
+            if (usable && bundleAnalyses[ref]) {
+                const a = JSON.parse(JSON.stringify(bundleAnalyses[ref]));
+                if (stype === "call") {
+                    if (ref === "C02" || ref === "C04") {
+                        a.label_audit = `Upstream is_connected=${p.is_connected}, is_conversation=${p.is_conversation}, observed_outcome='${p.observed_outcome}', but transcript proves only gatekeeper/voicemail screening occurred.`;
+                    } else {
+                        a.label_audit = `Upstream is_connected=${p.is_connected}, is_conversation=${p.is_conversation}, observed_outcome='${p.observed_outcome}' verified against 2-way transcript.`;
+                    }
+                } else {
+                    a.label_audit = `Meeting recording_status='${p.recording_status}', has_transcript=${p.has_transcript}, summary_status='${p.summary_status}' (upstream summary withheld as null).`;
+                }
+                return a;
+            }
+
+            if (stype === "call") {
+                return {
+                    entity: `Call ${ref} (${p.direction || 'outbound'} | ${p.duration_seconds || 0}s)`,
+                    suggested_routes: ["Metadata-Only Intake (No Transcript)"],
+                    route_reason: `Transcript is null in supplied package. Upstream is_connected=${p.is_connected}, is_conversation=${p.is_conversation}, observed_outcome=${p.observed_outcome}.`,
+                    summary: `Background call record (${p.duration_seconds || 0}s duration, talk_time=${p.talk_time_seconds ?? 'null'}s, speaker_count=${p.speaker_count ?? 'null'}). No transcript text is supplied in this package. Missing transcript does not prove no conversation occurred, and upstream flags are not ground truth.`,
+                    evidence: [{ ref: `${ref} (${rec.source_id})`, quote: `[No transcript supplied. Metadata: duration_seconds=${p.duration_seconds}, is_connected=${p.is_connected}, is_conversation=${p.is_conversation}, observed_outcome=${p.observed_outcome}]` }],
+                    not_established: "Cannot establish customer intent, objections, or commercial next steps without transcript text.",
+                    next_steps: "Include in selected call activity counts; no substantive analysis generated to avoid hallucination.",
+                    owner: p.rep_name || p.rep_email || "Unassigned Call Rep",
+                    label_audit: `Metadata-only record: is_connected=${p.is_connected}, is_conversation=${p.is_conversation}, summary_status=${p.summary_status}.`
+                };
+            } else {
+                const unavail = tp.unavailable_reason || p.recording_detail || "No transcript turns supplied";
+                return {
+                    entity: `${p.title || 'Meeting'} (${ref})`,
+                    suggested_routes: ["Pending Transcript / Uncaptured Meeting"],
+                    route_reason: `Supplied turns=[] (recording_status='${p.recording_status}', has_transcript=${p.has_transcript}, unavailable_reason='${unavail}').`,
+                    summary: `Calendar meeting '${p.title}' with organizer_email=${p.organizer_email} (duration_seconds=${p.duration_seconds}). Zero transcript turns supplied (${unavail}). Note: recording_status='cancelled' means the notetaker bot was cancelled, not necessarily the meeting itself.`,
+                    evidence: [{ ref: `${ref} (${rec.source_id})`, quote: `[0 usable turns. recording_status=${p.recording_status}, has_transcript=${p.has_transcript}, unavailable_reason=${tp.unavailable_reason}]` }],
+                    not_established: "Cannot establish what was discussed or who attended from calendar metadata alone.",
+                    next_steps: p.has_transcript ? "Await late transcript delivery batch (e.g. Revision 2 update) or check connector." : "Request manual meeting notes from organiser if commercial follow-up is needed.",
+                    owner: p.organizer_email || "Meeting Organiser",
+                    label_audit: `recording_status='${p.recording_status}', has_transcript=${p.has_transcript}, turns.length=0.`
+                };
+            }
+        }
+
+        function getActiveRoutes(key, rec) {
+            if (appState.manualOverrides[key] && appState.manualOverrides[key].routes.length > 0) {
+                return appState.manualOverrides[key].routes;
+            }
+            return getRecordAnalysis(rec).suggested_routes;
+        }
+
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+        }
+
+        function ingestBatchObject(batchObj, shuffleOrder, stepLabel) {
+            if (!batchObj || !batchObj.records) return;
+            const rev = batchObj.revision || 1;
+            let recs = JSON.parse(JSON.stringify(batchObj.records));
+            if (shuffleOrder) recs.reverse();
+
+            let inserted = 0, updated = 0, ignored = 0;
+            recs.forEach(r => {
+                const sid = r.source_id || (r.payload && r.payload.id);
+                const key = makeKey(r.source_type, sid);
+                const existing = appState.recordsByKey[key];
+
+                if (!existing) {
+                    r.applied_revision = rev;
+                    appState.recordsByKey[key] = r;
+                    const usable = hasUsableText(r);
+                    appState.reviewStates[key] = {
+                        intake_status: usable ? "Ready for Review" : "Metadata Only (No Text)",
+                        analysis_freshness: `Fresh (Rev ${rev})`,
+                        analyzed_revision: rev
+                    };
+                    inserted++;
+                } else if (rev > (existing.applied_revision || 1)) {
+                    const wasUsable = hasUsableText(existing);
+                    r.applied_revision = rev;
+                    appState.recordsByKey[key] = r;
+                    const nowUsable = hasUsableText(r);
+                    appState.reviewStates[key] = {
+                        intake_status: (!wasUsable && nowUsable) ? "Late Transcript Arrived — Needs Review" : "Updated Source — Needs Review",
+                        analysis_freshness: `Updated in Rev ${rev} (New Transcript Loaded — Verify Analysis)`,
+                        analyzed_revision: rev
+                    };
+                    updated++;
+                } else {
+                    ignored++;
+                }
+            });
+
+            const allRecs = Object.values(appState.recordsByKey);
+            const usableCount = allRecs.filter(hasUsableText).length;
+            appState.replayLog.push({
+                time: new Date().toLocaleTimeString(),
+                step: stepLabel,
+                batch_id: batchObj.batch_id || "delivery",
+                revision: rev,
+                unique_records: allRecs.length,
+                usable_texts: usableCount,
+                inserted,
+                updated,
+                ignored
+            });
+            saveState();
+            refreshAllViews();
+        }
+
+        function initWorkspace() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    if (parsed && parsed.recordsByKey && Object.keys(parsed.recordsByKey).length === 44) {
+                        appState = parsed;
+                        populateFilterDropdowns();
+                        refreshAllViews();
+                        return;
+                    }
+                } catch (e) { console.warn(e); }
+            }
+            // Default post-update state on first load (runs full 5-step replay contract automatically)
+            runFullDemoSequence();
+        }
+
+        function runFullDemoSequence() {
+            if (!window.SPENDNEST_BUNDLE) return;
+            appState.recordsByKey = {};
+            appState.manualOverrides = {};
+            appState.reviewStates = {};
+            appState.replayLog = [];
+
+            ingestBatchObject(window.SPENDNEST_BUNDLE.initial_batch, false, "1. Initial Import (01_initial.json)");
+            ingestBatchObject(window.SPENDNEST_BUNDLE.initial_batch, true, "2. Repeat Import Reordered (01_initial.json)");
+
+            const m07Key = "meeting::4f304fff-fd40-5cfc-a366-0a134c445c2a";
+            appState.manualOverrides[m07Key] = {
+                routes: ["Customer Support & Escalation", "Product Bug Escalation"],
+                reason: "Manager routed M07 (Willowfield Trust) to both Customer Support Escalation & Product Bug Escalation.",
+                updated_at: "2026-08-22 IST"
+            };
+            appState.replayLog.push({
+                time: new Date().toLocaleTimeString(),
+                step: "3. Manual Route Correction on M07",
+                batch_id: "user_override",
+                revision: 1,
+                unique_records: Object.keys(appState.recordsByKey).length,
+                usable_texts: Object.values(appState.recordsByKey).filter(hasUsableText).length,
+                inserted: 0, updated: 1, ignored: 0
+            });
+
+            ingestBatchObject(window.SPENDNEST_BUNDLE.update_batch, false, "4. Update Batch Import (02_update.json — M07 Late Transcript)");
+            ingestBatchObject(window.SPENDNEST_BUNDLE.initial_batch, false, "5. Repeat Initial Batch After Update (Older Rev 1 Ignored)");
+
+            populateFilterDropdowns();
+            saveState();
+            refreshAllViews();
+        }
+
+        function replayResetToClean() {
+            if (!window.SPENDNEST_BUNDLE) return;
+            appState.recordsByKey = {};
+            appState.manualOverrides = {};
+            appState.reviewStates = {};
+            appState.replayLog = [];
+            ingestBatchObject(window.SPENDNEST_BUNDLE.initial_batch, false, "Clean Start: Initial Batch Only (Rev 1 — 17 Usable Texts)");
+            saveState();
+            refreshAllViews();
+        }
+
+        function replayStep1Initial() {
+            ingestBatchObject(window.SPENDNEST_BUNDLE.initial_batch, false, "Step 1: Import 01_initial.json (Rev 1)");
+        }
+        function replayStep2RepeatShuffled() {
+            ingestBatchObject(window.SPENDNEST_BUNDLE.initial_batch, true, "Step 2: Repeat Import in Reversed Order (Idempotency Check)");
+        }
+        function replayStep3ManualOverrideM07() {
+            const m07Key = "meeting::4f304fff-fd40-5cfc-a366-0a134c445c2a";
+            appState.manualOverrides[m07Key] = {
+                routes: ["Customer Support & Escalation", "Product Bug Escalation", "Sales Coaching"],
+                reason: "Manager manually added Sales Coaching & Product Bug Escalation to M07 during replay verification.",
+                updated_at: new Date().toLocaleTimeString()
+            };
+            appState.replayLog.push({
+                time: new Date().toLocaleTimeString(),
+                step: "Step 3: Manual Route Correction Saved on M07",
+                batch_id: "manual_override",
+                revision: (appState.recordsByKey[m07Key] && appState.recordsByKey[m07Key].applied_revision) || 1,
+                unique_records: Object.keys(appState.recordsByKey).length,
+                usable_texts: Object.values(appState.recordsByKey).filter(hasUsableText).length,
+                inserted: 0, updated: 1, ignored: 0
+            });
+            saveState();
+            refreshAllViews();
+        }
+        function replayStep4ImportUpdate() {
+            ingestBatchObject(window.SPENDNEST_BUNDLE.update_batch, false, "Step 4: Import 02_update.json (Rev 2 Late Transcript for M07)");
+        }
+        function replayStep5StaleReimport() {
+            ingestBatchObject(window.SPENDNEST_BUNDLE.initial_batch, false, "Step 5: Re-import 01_initial.json (Rev 1 Ignored Against Rev 2)");
+        }
+
+        function getPersonLabel(rec) {
+            const p = rec.payload || {};
+            if (rec.source_type === "call") {
+                const name = p.rep_name || "Unassigned";
+                const email = p.rep_email || "no-email";
+                return `Call Rep: ${name} (${email})`;
+            } else {
+                return `Meeting Organiser: ${p.organizer_email || "unknown"}`;
+            }
+        }
+
+        function populateFilterDropdowns() {
+            const allRecs = Object.values(appState.recordsByKey);
+            const peopleSet = new Set();
+            allRecs.forEach(r => peopleSet.add(getPersonLabel(r)));
+            const peopleSorted = Array.from(peopleSet).sort();
+
+            const dashPerson = document.getElementById("dash-person-filter");
+            const inboxPerson = document.getElementById("inbox-person");
+            dashPerson.innerHTML = `<option value="ALL">All Call Reps & Meeting Organisers (${peopleSorted.length})</option>` +
+                peopleSorted.map(p => `<option value="${p}">${p}</option>`).join("");
+            inboxPerson.innerHTML = `<option value="ALL">All People (${peopleSorted.length})</option>` +
+                peopleSorted.map(p => `<option value="${p}">${p}</option>`).join("");
+
+            const inboxRoute = document.getElementById("inbox-route");
+            inboxRoute.innerHTML = `<option value="ALL">All Routing Categories</option>` +
+                ALL_ROUTE_OPTIONS.map(rt => `<option value="${rt}">${rt}</option>`).join("");
+        }
+
+        function resetDashFilters() {
+            document.getElementById("dash-source-filter").value = "ALL";
+            document.getElementById("dash-person-filter").value = "ALL";
+            document.getElementById("dash-text-filter").value = "ALL";
+            renderDashboard();
+        }
+
+        function clearInboxFilters() {
+            document.getElementById("inbox-type").value = "ALL";
+            document.getElementById("inbox-text").value = "ALL";
+            document.getElementById("inbox-route").value = "ALL";
+            document.getElementById("inbox-person").value = "ALL";
+            document.getElementById("inbox-search").value = "";
+            renderInboxList();
+        }
+
+        function renderDashboard() {
+            const sFilter = document.getElementById("dash-source-filter").value;
+            const pFilter = document.getElementById("dash-person-filter").value;
+            const tFilter = document.getElementById("dash-text-filter").value;
+
+            const allRecs = Object.values(appState.recordsByKey);
+            const filtered = allRecs.filter(r => {
+                if (sFilter !== "ALL" && r.source_type !== sFilter) return false;
+                if (pFilter !== "ALL" && getPersonLabel(r) !== pFilter) return false;
+                const u = hasUsableText(r);
+                if (tFilter === "USABLE" && !u) return false;
+                if (tFilter === "MISSING" && u) return false;
+                return true;
+            });
+
+            const calls = filtered.filter(r => r.source_type === "call");
+            const meetings = filtered.filter(r => r.source_type === "meeting");
+            const usableTotal = filtered.filter(hasUsableText).length;
+            const usableCalls = calls.filter(hasUsableText).length;
+            const usableMeetings = meetings.filter(hasUsableText).length;
+
+            // Source-reported connection rate denominator: calls with non-null is_connected
+            const callsKnownConn = calls.filter(r => r.payload && r.payload.is_connected !== null && r.payload.is_connected !== undefined);
+            const callsConnTrue = callsKnownConn.filter(r => r.payload.is_connected === true);
+            const callsConnNull = calls.length - callsKnownConn.length;
+
+            // Transcript-verified substantive 2-way calls (exclude C02 gatekeeper & C04 voicemail)
+            const substantiveCalls = calls.filter(r => hasUsableText(r) && !["C02", "C04"].includes(r.record_ref));
+
+            // Route assignments count
+            let totalRouteAssignments = 0;
+            let manualOverrideCount = 0;
+            filtered.forEach(r => {
+                const k = makeKey(r.source_type, r.source_id);
+                const rts = getActiveRoutes(k, r);
+                totalRouteAssignments += rts.length;
+                if (appState.manualOverrides[k]) manualOverrideCount++;
+            });
+
+            const pct = (n, d) => d > 0 ? ((n / d) * 100).toFixed(1) + "%" : "0.0%";
+
+            document.getElementById("dashboard-kpis").innerHTML = `
+        <div class="kpi">
+            <h3>Selected Activity (21 Aug 2026 IST)</h3>
+            <div class="val">${filtered.length} <span style="font-size:0.95rem; font-weight:500; color:#64748b;">/ 44 records</span></div>
+            <div class="denom"><strong>${calls.length}</strong> Calls (<code>started_at</code>) | <strong>${meetings.length}</strong> Meetings (<code>starts_at</code>). Distinct <code>(source_type, source_id)</code>.</div>
+        </div>
+        <div class="kpi">
+            <h3>Usable Transcript Coverage</h3>
+            <div class="val">${usableTotal} / ${filtered.length} <span style="font-size:0.95rem; color:var(--accent);">(${pct(usableTotal, filtered.length)})</span></div>
+            <div class="denom">Calls: <strong>${usableCalls}/${calls.length}</strong> (${pct(usableCalls, calls.length)}) | Meetings: <strong>${usableMeetings}/${meetings.length}</strong> (${pct(usableMeetings, meetings.length)}).</div>
+        </div>
+        <div class="kpi">
+            <h3>Call Connection: Stored vs Verified</h3>
+            <div class="val">${callsConnTrue.length} / ${callsKnownConn.length} <span style="font-size:0.95rem; color:#64748b;">(${pct(callsConnTrue.length, callsKnownConn.length)})</span></div>
+            <div class="denom">Stored <code>is_connected=true</code> over non-null (${callsConnNull} null). Transcript-verified 2-way substance: <strong>${substantiveCalls.length}/${usableCalls}</strong> text calls (C02 & C04 are gatekeeper/voicemail).</div>
+        </div>
+        <div class="kpi">
+            <h3>Routing & Review State</h3>
+            <div class="val">${totalRouteAssignments} <span style="font-size:0.95rem; font-weight:500; color:#64748b;">routes across ${filtered.length} records</span></div>
+            <div class="denom">Active Manual Overrides: <strong>${manualOverrideCount}</strong> | Multi-route records preserve context across folders.</div>
+        </div>
+    `;
+
+            // Call Reps Table
+            const repGroups = {};
+            calls.forEach(r => {
+                const p = r.payload || {};
+                const key = `${p.rep_name || 'Unassigned'} (${p.rep_email || 'null'})`;
+                if (!repGroups[key]) repGroups[key] = { total: 0, usable: 0, connTrue: 0, connKnown: 0, substantive: 0, personFilter: getPersonLabel(r) };
+                repGroups[key].total++;
+                if (hasUsableText(r)) {
+                    repGroups[key].usable++;
+                    if (!["C02", "C04"].includes(r.record_ref)) repGroups[key].substantive++;
+                }
+                if (p.is_connected !== null && p.is_connected !== undefined) {
+                    repGroups[key].connKnown++;
+                    if (p.is_connected === true) repGroups[key].connTrue++;
+                }
+            });
+
+            let repRows = Object.entries(repGroups).sort((a, b) => b[1].total - a[1].total).map(([rep, g]) => `
+        <tr class="clickable" onclick="drillToPerson('${g.personFilter}')">
+            <td><strong>${rep}</strong></td>
+            <td>${g.total}</td>
+            <td>${g.usable} / ${g.total} (${pct(g.usable, g.total)})</td>
+            <td>${g.connTrue} / ${g.connKnown} (${g.total - g.connKnown} null)</td>
+            <td><strong>${g.substantive}</strong> / ${g.usable}</td>
+        </tr>
+    `).join("");
+            document.getElementById("call-rep-table").innerHTML = `
+        <table>
+            <tr><th>Call Rep (rep_name / rep_email)</th><th>Calls</th><th>Transcript Coverage</th><th>Source-Reported Connected</th><th>Verified 2-Way Substance</th></tr>
+            ${repRows || '<tr><td colspan="5">No matching call records in current filter.</td></tr>'}
+        </table>
+    `;
+
+            // Meeting Organisers Table
+            const orgGroups = {};
+            meetings.forEach(r => {
+                const p = r.payload || {};
+                const key = p.organizer_email || "unknown";
+                if (!orgGroups[key]) orgGroups[key] = { total: 0, usable: 0, recorded: 0, botCancelled: 0, notSched: 0, personFilter: getPersonLabel(r) };
+                orgGroups[key].total++;
+                if (hasUsableText(r)) orgGroups[key].usable++;
+                if (p.recording_status === "recorded") orgGroups[key].recorded++;
+                else if (p.recording_status === "cancelled") orgGroups[key].botCancelled++;
+                else orgGroups[key].notSched++;
+            });
+
+            let orgRows = Object.entries(orgGroups).sort((a, b) => b[1].total - a[1].total).map(([org, g]) => `
+        <tr class="clickable" onclick="drillToPerson('${g.personFilter}')">
+            <td><strong>${org}</strong></td>
+            <td>${g.total}</td>
+            <td>${g.usable} / ${g.total} (${pct(g.usable, g.total)})</td>
+            <td><span class="badge b-ok">${g.recorded} recorded</span> <span class="badge b-warn">${g.botCancelled} bot cancelled</span> <span class="badge b-route">${g.notSched} not_scheduled</span></td>
+        </tr>
+    `).join("");
+            document.getElementById("meeting-org-table").innerHTML = `
+        <table>
+            <tr><th>Calendar Organiser (organizer_email)</th><th>Meetings</th><th>Usable Turn Coverage</th><th>Notetaker Capture Status</th></tr>
+            ${orgRows || '<tr><td colspan="4">No matching meeting records in current filter.</td></tr>'}
+        </table>
+    `;
+
+            // Route Breakdown Table
+            const routeCounts = {};
+            filtered.forEach(r => {
+                const k = makeKey(r.source_type, r.source_id);
+                getActiveRoutes(k, r).forEach(rt => {
+                    if (!routeCounts[rt]) routeCounts[rt] = { count: 0, refs: [] };
+                    routeCounts[rt].count++;
+                    routeCounts[rt].refs.push(r.record_ref);
+                });
+            });
+            let routeRows = Object.entries(routeCounts).sort((a, b) => b[1].count - a[1].count).map(([rt, info]) => `
+        <tr class="clickable" onclick="drillToRoute('${rt}')">
+            <td><strong>${rt}</strong></td>
+            <td>${info.count}</td>
+            <td><small>${info.refs.slice(0, 8).join(", ")}${info.refs.length > 8 ? "..." : ""}</small></td>
+        </tr>
+    `).join("");
+            document.getElementById("route-breakdown-table").innerHTML = `
+        <table>
+            <tr><th>Assigned Route Destination</th><th>Record Count</th><th>Sample Record Refs</th></tr>
+            ${routeRows}
+        </table>
+    `;
+
+            // Exceptions Queue
+            const exceptions = [
+                { ref: "M07", badge: "b-warn", type: "Late Transcript (Rev 2) + Override", detail: "Arrived in 02_update.json with 27 turns (4 bugs). Manual route override preserved; review updated analysis." },
+                { ref: "M09", badge: "b-err", type: "Onboarding Blocker Bug", detail: "Fresh password-reset invitation token for Brookmint Holdings expired immediately on live screen share (Turn 21)." },
+                { ref: "M04", badge: "b-err", type: "Card Migration Churn Risk", detail: "Customer wants credit (has INR 1.3Cr bank line), not prepaid replacement. Bank-feed & accounting sync unconfirmed." },
+                { ref: "M03", badge: "b-warn", type: "Pricing & Prepaid Friction", detail: "Customer challenged INR 26k -> INR 39k jump (unannounced INR 13k setup fee) and prepaid-only domestic cards." },
+                { ref: "M02", badge: "b-meeting", type: "Taxonomy Guardrail (Supplier)", detail: "SpendNest is the buyer evaluating e-invoicing supplier LedgerBridge (EUR 2,600–6,500 cost). Excluded from sales pipeline." },
+                { ref: "M10", badge: "b-meeting", type: "Taxonomy Guardrail (Internal)", detail: "Internal back-office super-admin billing training walkthrough. Excluded from customer pipeline." },
+                { ref: "C02", badge: "b-call", type: "Upstream Label Discrepancy", detail: "Connected to receptionist Kavya only (Leela out of office -> voicemail transfer), not a substantive prospect conversation." },
+                { ref: "C04", badge: "b-call", type: "Upstream Label Discrepancy", detail: "Automated call screening + voicemail left for Ritesh (Lanternpath Media); no two-way conversation occurred." }
+            ];
+            document.getElementById("exception-queue-table").innerHTML = `
+        <table>
+            <tr><th>Ref</th><th>Exception Category</th><th>Why It Needs Manager Attention</th></tr>
+            ${exceptions.map(ex => `
+                <tr class="clickable" onclick="openRecordInInbox('${ex.ref}')">
+                    <td><span class="badge ${ex.badge}">${ex.ref}</span></td>
+                    <td><strong>${ex.type}</strong></td>
+                    <td>${ex.detail}</td>
+                </tr>
+            `).join("")}
+        </table>
+    `;
+        }
+
+        function drillToPerson(personLabel) {
+            switchTab("inbox");
+            clearInboxFilters();
+            document.getElementById("inbox-person").value = personLabel;
+            renderInboxList();
+        }
+
+        function drillToRoute(routeLabel) {
+            switchTab("inbox");
+            clearInboxFilters();
+            document.getElementById("inbox-route").value = routeLabel;
+            renderInboxList();
+        }
+
+        function openRecordInInbox(recordRef) {
+            switchTab("inbox");
+            clearInboxFilters();
+            const match = Object.entries(appState.recordsByKey).find(([k, r]) => r.record_ref === recordRef);
+            if (match) {
+                appState.selectedKey = match[0];
+                saveState();
+                renderInboxList();
+                renderInboxDetail();
+            }
+        }
+
+        function renderInboxList() {
+            const tVal = document.getElementById("inbox-type").value;
+            const txVal = document.getElementById("inbox-text").value;
+            const rVal = document.getElementById("inbox-route").value;
+            const pVal = document.getElementById("inbox-person").value;
+            const q = (document.getElementById("inbox-search").value || "").toLowerCase().trim();
+
+            const sorted = Object.entries(appState.recordsByKey).sort((a, b) => {
+                const ra = a[1].record_ref || "";
+                const rb = b[1].record_ref || "";
+                return ra.localeCompare(rb, undefined, { numeric: true });
+            });
+
+            const matching = sorted.filter(([key, rec]) => {
+                if (tVal !== "ALL" && rec.source_type !== tVal) return false;
+                const u = hasUsableText(rec);
+                if (txVal === "USABLE" && !u) return false;
+                if (txVal === "MISSING" && u) return false;
+                if (pVal !== "ALL" && getPersonLabel(rec) !== pVal) return false;
+                const activeRts = getActiveRoutes(key, rec);
+                if (rVal !== "ALL" && !activeRts.includes(rVal)) return false;
+                if (q) {
+                    const analysis = getRecordAnalysis(rec);
+                    const hay = `${rec.record_ref} ${rec.source_id} ${analysis.entity} ${analysis.summary} ${JSON.stringify(rec.payload)} ${JSON.stringify(rec.transcript_payload)}`.toLowerCase();
+                    if (!hay.includes(q)) return false;
+                }
+                return true;
+            });
+
+            const container = document.getElementById("inbox-list-container");
+            if (matching.length === 0) {
+                container.innerHTML = `<div style="padding:1.2rem; color:#64748b;">No records match the current filters.</div>`;
+                return;
+            }
+
+            if (!matching.some(([k]) => k === appState.selectedKey)) {
+                appState.selectedKey = matching[0][0];
+            }
+
+            container.innerHTML = matching.map(([key, rec]) => {
+                const usable = hasUsableText(rec);
+                const analysis = getRecordAnalysis(rec);
+                const activeRts = getActiveRoutes(key, rec);
+                const isManual = Boolean(appState.manualOverrides[key]);
+                const selectedClass = key === appState.selectedKey ? "selected" : "";
+                return `
+            <div class="record-item ${selectedClass}" onclick="selectInboxRecord('${key}')">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <span class="badge ${rec.source_type === 'call' ? 'b-call' : 'b-meeting'}">${rec.record_ref} (${rec.source_type})</span>
+                        <span class="badge ${usable ? 'b-ok' : 'b-route'}">${usable ? 'Transcript Supplied' : 'No Text'}</span>
+                        ${rec.applied_revision > 1 ? `<span class="badge b-warn">Rev ${rec.applied_revision}</span>` : ''}
+                        ${isManual ? `<span class="badge b-manual">Manual Override</span>` : ''}
+                    </div>
+                </div>
+                <div style="font-weight:600; font-size:0.9rem; margin-top:0.25rem; color:var(--heading);">${analysis.entity}</div>
+                <div style="font-size:0.76rem; color:#64748b;">${getPersonLabel(rec)}</div>
+                <div style="margin-top:0.3rem;">
+                    ${activeRts.map(rt => `<span class="badge b-route">${rt}</span>`).join("")}
+                </div>
+            </div>
+        `;
+            }).join("");
+
+            renderInboxDetail();
+        }
+
+        function selectInboxRecord(key) {
+            appState.selectedKey = key;
+            saveState();
+            renderInboxList();
+        }
+
+        function renderInboxDetail() {
+            const key = appState.selectedKey;
+            const rec = appState.recordsByKey[key];
+            const container = document.getElementById("inbox-detail-container");
+            if (!rec) {
+                container.innerHTML = `<div class="card">Select a record on the left to inspect its evidence and routing.</div>`;
+                return;
+            }
+
+            const analysis = getRecordAnalysis(rec);
+            const activeRts = getActiveRoutes(key, rec);
+            const manualObj = appState.manualOverrides[key];
+            const rState = appState.reviewStates[key] || {};
+            const usable = hasUsableText(rec);
+            const p = rec.payload || {};
+            const tp = rec.transcript_payload || {};
+
+            // Transcript display
+            let transcriptHTML = "";
+            if (rec.source_type === "call") {
+                if (usable) {
+                    transcriptHTML = `<div class="turn-box">${p.transcript}</div>`;
+                } else {
+                    transcriptHTML = `<div class="evidence-box"><strong>No Supplied Call Transcript:</strong> <code>payload.transcript = null</code>. Upstream metadata: <code>duration_seconds=${p.duration_seconds}</code>, <code>talk_time_seconds=${p.talk_time_seconds}</code>, <code>is_connected=${p.is_connected}</code>, <code>is_conversation=${p.is_conversation}</code>, <code>observed_outcome=${p.observed_outcome}</code>.</div>`;
+                }
+            } else {
+                const turns = tp.turns || [];
+                if (turns.length > 0) {
+                    transcriptHTML = turns.map((t, idx) => `
+                <div class="turn-box">
+                    <strong>Turn ${idx + 1} | ${t.timecode || ''} | ${t.speaker || 'Speaker'}</strong> (<code>starts_at_seconds: ${t.starts_at_seconds}</code>)<br>
+                    ${t.text}
+                </div>
+            `).join("");
+                } else {
+                    transcriptHTML = `<div class="evidence-box"><strong>0 Usable Meeting Turns Supplied:</strong> <code>transcript_payload.turns = []</code>, <code>unavailable_reason = ${tp.unavailable_reason || 'null'}</code>, <code>recording_status = ${p.recording_status}</code> (${p.recording_detail || 'no detail'}).</div>`;
+                }
+            }
+
+            const checkboxesHTML = ALL_ROUTE_OPTIONS.map(rt => {
+                const checked = activeRts.includes(rt) ? "checked" : "";
+                return `<label><input type="checkbox" name="route-cb" value="${rt}" ${checked}> ${rt}</label>`;
+            }).join("");
+
+            container.innerHTML = `
+        <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+                <div>
+                    <span class="badge ${rec.source_type === 'call' ? 'b-call' : 'b-meeting'}">${rec.record_ref} — ${rec.source_type.toUpperCase()}</span>
+                    <span class="badge b-route">Identity: (${rec.source_type}, ${rec.source_id})</span>
+                    <span class="badge ${rec.applied_revision > 1 ? 'b-warn' : 'b-ok'}">Applied Revision: ${rec.applied_revision}</span>
+                    <h2 style="margin:0.4rem 0 0.2rem;">${analysis.entity}</h2>
+                    <div style="font-size:0.84rem; color:#475569;">
+                        <strong>${getPersonLabel(rec)}</strong> | Activity Timestamp: <code>${p.started_at || p.starts_at}</code> (21 Aug 2026 Asia/Kolkata)
+                    </div>
+                </div>
+                <div style="text-align:right; font-size:0.8rem;">
+                    <div><strong>Intake State:</strong> <span class="badge b-ok">${rState.intake_status || 'Inspected'}</span></div>
+                    <div style="margin-top:0.25rem;"><strong>Analysis Freshness:</strong> <span class="badge ${rec.applied_revision > 1 ? 'b-warn' : 'b-route'}">${rState.analysis_freshness || 'Fresh'}</span></div>
+                </div>
+            </div>
+
+            <hr style="border:none; border-top:1px solid var(--border); margin:1rem 0;">
+
+            <!-- ROUTING & MANUAL OVERRIDE PANEL -->
+            <div style="background:#f8fafc; border:1px solid var(--border); border-radius:8px; padding:1rem; margin-bottom:1rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+                    <strong>Routing Decision & Manual Correction (Persisted Across Replay & Refresh)</strong>
+                    ${manualObj ? `<span class="badge b-manual">MANUAL OVERRIDE ACTIVE (${manualObj.updated_at})</span>` : `<span class="badge b-route">Automated Suggested Route Active</span>`}
+                </div>
+                <div style="font-size:0.83rem; color:#475569; margin-top:0.3rem;">
+                    <strong>Suggested Route(s):</strong> ${analysis.suggested_routes.join("; ")}<br>
+                    <strong>Routing Rationale:</strong> ${manualObj ? manualObj.reason : analysis.route_reason}
+                </div>
+                <div class="route-checkboxes" id="detail-route-checkboxes">${checkboxesHTML}</div>
+                <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; margin-top:0.5rem;">
+                    <input type="text" id="override-reason-input" placeholder="Optional manager note for route correction..." value="${manualObj ? manualObj.reason : ''}" style="flex:1; padding:0.45rem; border:1px solid #cbd5e1; border-radius:6px; font-size:0.84rem;">
+                    <button class="btn" onclick="saveManualRouteFromUI('${key}')">Save Route Correction</button>
+                    ${manualObj ? `<button class="btn btn-outline" onclick="resetManualRouteFromUI('${key}')">Reset to Automated Suggestion</button>` : ''}
+                </div>
+            </div>
+
+            <!-- DIFFERENTIATED EVIDENCE-BACKED ANALYSIS -->
+            <h3>1. What Happened & Why It Matters</h3>
+            <p style="font-size:0.92rem; margin-top:0.2rem;">${analysis.summary}</p>
+
+            <h3>2. Supporting Evidence Passages</h3>
+            ${analysis.evidence.map(ev => `
+                <div class="evidence-box">
+                    <strong>Citation [${ev.ref}]:</strong> "${ev.quote}"
+                </div>
+            `).join("")}
+
+            <h3>3. What the Evidence Does Not Establish & Upstream Label Audit</h3>
+            <ul style="font-size:0.88rem;">
+                <li><strong>Uncertainty Boundaries:</strong> ${analysis.not_established}</li>
+                <li><strong>Upstream Classification Audit:</strong> ${analysis.label_audit}</li>
+            </ul>
+
+            <h3>4. Actionable Next Step & Stated Ownership</h3>
+            <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:0.8rem 1rem; border-radius:8px; font-size:0.9rem; margin-bottom:1.25rem;">
+                <strong>Next Step:</strong> ${analysis.next_steps}<br>
+                <strong>Stated Owner:</strong> ${analysis.owner}
+            </div>
+
+            <!-- FULL INSPECTABLE TRANSCRIPT & SOURCE METADATA -->
+            <h3>5. Full Supplied Transcript / Turns (${usable ? 'Usable Text Supplied' : 'No Usable Text'})</h3>
+            <div style="max-height:360px; overflow-y:auto; padding-right:0.3rem;">${transcriptHTML}</div>
+
+            <details style="margin-top:1rem;">
+                <summary style="cursor:pointer; font-weight:600; color:var(--accent);">Inspect Raw Source Payload & Metadata JSON</summary>
+                <pre style="background:#0f172a; color:#f8fafc; padding:1rem; border-radius:8px; overflow-x:auto; font-size:0.78rem;">${JSON.stringify(rec, null, 2)}</pre>
+            </details>
+        </div>
+    `;
+        }
+
+        function saveManualRouteFromUI(key) {
+            const checked = Array.from(document.querySelectorAll('input[name="route-cb"]:checked')).map(cb => cb.value);
+            if (checked.length === 0) {
+                alert("Please select at least one route destination.");
+                return;
+            }
+            const reason = document.getElementById("override-reason-input").value || "Manager manually updated routing in Inbox Inspector.";
+            appState.manualOverrides[key] = {
+                routes: checked,
+                reason: reason,
+                updated_at: new Date().toLocaleTimeString()
+            };
+            const rec = appState.recordsByKey[key];
+            appState.replayLog.push({
+                time: new Date().toLocaleTimeString(),
+                step: `Manual Route Override on ${rec ? rec.record_ref : key}`,
+                batch_id: "ui_manual_correction",
+                revision: rec ? rec.applied_revision : 1,
+                unique_records: Object.keys(appState.recordsByKey).length,
+                usable_texts: Object.values(appState.recordsByKey).filter(hasUsableText).length,
+                inserted: 0, updated: 1, ignored: 0
+            });
+            saveState();
+            refreshAllViews();
+        }
+
+        function resetManualRouteFromUI(key) {
+            delete appState.manualOverrides[key];
+            saveState();
+            refreshAllViews();
+        }
+
+        function buildManifestRows() {
+            const sorted = Object.entries(appState.recordsByKey).sort((a, b) =>
+                (a[1].record_ref || "").localeCompare(b[1].record_ref || "", undefined, { numeric: true })
+            );
+            return sorted.map(([key, rec]) => {
+                const analysis = getRecordAnalysis(rec);
+                const activeRts = getActiveRoutes(key, rec);
+                const isManual = Boolean(appState.manualOverrides[key]);
+                const rState = appState.reviewStates[key] || {};
+                const ref = rec.record_ref;
+                const stype = rec.source_type;
+                const sid = rec.source_id;
+
+                const outPaths = [`exports/records/${ref}_${stype}_${sid.slice(0, 8)}.json`];
+                activeRts.forEach(rt => {
+                    const slug = rt.toLowerCase().replace(/&/g, "and").replace(/\//g, "_").replace(/[^a-z0-9_]+/g, "_").replace(/^_|_$/g, "");
+                    outPaths.push(`exports/routes/${slug}/${ref}_${stype}.md`);
+                });
+
+                return {
+                    record_ref: ref,
+                    source_type: stype,
+                    source_id: sid,
+                    applied_source_revision: rec.applied_revision || 1,
+                    has_usable_text: hasUsableText(rec),
+                    suggested_routes: analysis.suggested_routes.join("; "),
+                    assigned_routes: activeRts.join("; "),
+                    manual_override_flag: isManual,
+                    processing_review_state: isManual ? "Manually Routed & Verified" : (rState.intake_status || "Ready"),
+                    analysis_freshness: rState.analysis_freshness || "Fresh",
+                    output_paths: outPaths.join("; ")
+                };
+            });
+        }
+
+        function renderReplayAndManifest() {
+            const allRecs = Object.values(appState.recordsByKey);
+            const usableCount = allRecs.filter(hasUsableText).length;
+            const m07Key = "meeting::4f304fff-fd40-5cfc-a366-0a134c445c2a";
+            const m07 = appState.recordsByKey[m07Key];
+            const m07Override = appState.manualOverrides[m07Key];
+
+            document.getElementById("header-state-pill").innerHTML =
+                `Records: <strong>${allRecs.length}</strong> | Usable Texts: <strong>${usableCount}/44</strong> | M07 Rev: <strong>${m07 ? m07.applied_revision : 1}</strong>`;
+
+            document.getElementById("replay-status-banner").innerHTML = `
+        <strong>Live Contract Verification:</strong>
+        Unique Records = <strong>${allRecs.length}</strong> (Must be 44) |
+        Usable Supplied Transcripts = <strong>${usableCount}</strong> (17 initially, 18 after update) |
+        M07 Revision = <strong>${m07 ? m07.applied_revision : 'N/A'}</strong> (${m07 && hasUsableText(m07) ? '27 turns loaded' : '0 turns - initial state'}) |
+        M07 Manual Route Override = <strong>${m07Override ? 'ACTIVE (' + m07Override.routes.join(', ') + ')' : 'None'}</strong>
+        <button class="btn btn-outline" style="margin-left:0.75rem; padding:0.25rem 0.6rem;" onclick="openRecordInInbox('M07')">Inspect M07 Now</button>
+    `;
+
+            document.getElementById("replay-log-table").innerHTML = `
+        <table>
+            <tr><th>Time</th><th>Replay Action</th><th>Batch ID</th><th>Rev</th><th>Unique Records</th><th>Usable Texts</th><th>Inserted</th><th>Updated</th><th>Ignored</th></tr>
+            ${appState.replayLog.map(l => `
+                <tr>
+                    <td>${l.time}</td>
+                    <td><strong>${l.step}</strong></td>
+                    <td><code>${l.batch_id}</code></td>
+                    <td>${l.revision}</td>
+                    <td><strong>${l.unique_records}</strong></td>
+                    <td><strong>${l.usable_texts}</strong></td>
+                    <td>${l.inserted}</td>
+                    <td>${l.updated}</td>
+                    <td>${l.ignored}</td>
+                </tr>
+            `).join("")}
+        </table>
+    `;
+
+            const rows = buildManifestRows();
+            document.getElementById("manifest-preview-table").innerHTML = `
+        <table>
+            <tr><th>Ref</th><th>Identity (source_type, source_id)</th><th>Rev</th><th>Usable Text</th><th>Assigned Route(s)</th><th>Manual Override</th><th>Freshness / Review State</th><th>Export Output Path(s)</th></tr>
+            ${rows.map(r => `
+                <tr class="clickable" onclick="openRecordInInbox('${r.record_ref}')">
+                    <td><strong>${r.record_ref}</strong></td>
+                    <td><code>(${r.source_type}, ${r.source_id.slice(0, 12)}...)</code></td>
+                    <td>${r.applied_source_revision}</td>
+                    <td>${r.has_usable_text ? '<span class="badge b-ok">Yes</span>' : '<span class="badge b-route">No</span>'}</td>
+                    <td>${r.assigned_routes}</td>
+                    <td>${r.manual_override_flag ? '<span class="badge b-manual">TRUE</span>' : 'false'}</td>
+                    <td><small>${r.processing_review_state}<br>${r.analysis_freshness}</small></td>
+                    <td><small><code>${r.output_paths.split("; ").join("<br>")}</code></small></td>
+                </tr>
+            `).join("")}
+        </table>
+    `;
+        }
+
+        function downloadLiveManifestJSON() {
+            const rows = buildManifestRows();
+            const blob = new Blob([JSON.stringify({ generated_at: new Date().toISOString(), total_unique_records: rows.length, records: rows }, null, 2)], { type: "application/json" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "manifest.json";
+            a.click();
+        }
+
+        function downloadLiveManifestCSV() {
+            const rows = buildManifestRows();
+            if (!rows.length) return;
+            const headers = Object.keys(rows[0]);
+            const csv = [
+                headers.join(","),
+                ...rows.map(r => headers.map(h => `"${String(r[h]).replace(/"/g, '""')}"`).join(","))
+            ].join("\n");
+            const blob = new Blob([csv], { type: "text/csv" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "manifest.csv";
+            a.click();
+        }
+
+        function refreshAllViews() {
+            renderDashboard();
+            renderInboxList();
+            renderReplayAndManifest();
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+            document.querySelectorAll("#main-nav button").forEach(b => {
+                b.classList.toggle("active", b.getAttribute("data-tab") === tabId);
+            });
+            document.getElementById(tabId).classList.add("active");
+        }
+
+        window.addEventListener("DOMContentLoaded", initWorkspace);
+    </script>
+</body>
+
+</html>

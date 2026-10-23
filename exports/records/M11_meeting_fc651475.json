@@ -1,0 +1,72 @@
+{
+  "identity": {
+    "source_type": "meeting",
+    "source_id": "fc651475-187c-5882-a644-b501408e8647",
+    "record_ref": "M11",
+    "applied_revision": 1
+  },
+  "routing": {
+    "suggested_routes": [
+      "Pending Transcript / Uncaptured Meeting"
+    ],
+    "active_routes": [
+      "Pending Transcript / Uncaptured Meeting"
+    ],
+    "manual_override": false,
+    "route_reason": "No usable transcript turns supplied (recording_status='recorded', has_transcript=True, unavailable_reason='The meeting was recorded but nobody spoke.')."
+  },
+  "review_state": {
+    "intake_status": "Metadata Only (No Text)",
+    "analysis_freshness": "Fresh (Rev 1)",
+    "manual_override": false,
+    "analyzed_revision": 1
+  },
+  "analysis": {
+    "entity": "Internal design discussion (M11)",
+    "suggested_routes": [
+      "Pending Transcript / Uncaptured Meeting"
+    ],
+    "route_reason": "No usable transcript turns supplied (recording_status='recorded', has_transcript=True, unavailable_reason='The meeting was recorded but nobody spoke.').",
+    "summary": "Calendar meeting 'Internal design discussion' organised by team13@example.com (duration_seconds=194). Supplied turns array is empty (unavailable_reason: The meeting was recorded but nobody spoke.).",
+    "evidence": [
+      {
+        "ref": "M11 (fc651475-187c-5882-a644-b501408e8647)",
+        "quote": "[0 usable turns supplied. recording_status=recorded, recording_detail=None, unavailable_reason=The meeting was recorded but nobody spoke.]"
+      }
+    ],
+    "not_established": "A cancelled notetaker bot or missing transcript does not prove the meeting itself was cancelled or who attended. Refusing to fabricate meeting notes.",
+    "next_steps": "Await late transcript delivery (if has_transcript=true) or request manual notes from meeting participants.",
+    "owner": "team13@example.com",
+    "label_audit": "has_transcript=True with 0 turns; recording_status='recorded' (None)."
+  },
+  "source_record": {
+    "record_ref": "M11",
+    "source_type": "meeting",
+    "source_id": "fc651475-187c-5882-a644-b501408e8647",
+    "payload": {
+      "id": "fc651475-187c-5882-a644-b501408e8647",
+      "title": "Internal design discussion",
+      "starts_at": "2026-08-21T11:30:00Z",
+      "ends_at": "2026-08-21T12:30:00Z",
+      "duration_seconds": 194,
+      "provider": "google_meet",
+      "join_url": "https://meet.example.invalid/fc651475-187c-5882-a644-b501408e8647",
+      "organizer_email": "team13@example.com",
+      "attendee_count": 1,
+      "recording_status": "recorded",
+      "recording_detail": null,
+      "recording_id": "ac65ee6e-a1a5-5827-9320-b1c0c7cd002c",
+      "has_transcript": true,
+      "has_video": true,
+      "summary": null,
+      "summary_status": "stored",
+      "redacted": true
+    },
+    "transcript_payload": {
+      "meeting_id": "fc651475-187c-5882-a644-b501408e8647",
+      "turns": [],
+      "unavailable_reason": "The meeting was recorded but nobody spoke."
+    },
+    "applied_revision": 1
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "identity": {
+    "source_type": "call",
+    "source_id": "77350513-913c-5fed-b4e6-71009de9df03",
+    "record_ref": "B08",
+    "applied_revision": 1
+  },
+  "routing": {
+    "suggested_routes": [
+      "Metadata-Only Intake (No Transcript)"
+    ],
+    "active_routes": [
+      "Metadata-Only Intake (No Transcript)"
+    ],
+    "manual_override": false,
+    "route_reason": "No transcript supplied in package (transcript=null). Source-reported is_connected=False, is_conversation=False, observed_outcome=unresponsive."
+  },
+  "review_state": {
+    "intake_status": "Metadata Only (No Text)",
+    "analysis_freshness": "Fresh (Rev 1)",
+    "manual_override": false,
+    "analyzed_revision": 1
+  },
+  "analysis": {
+    "entity": "Call B08 (inbound | 21s)",
+    "suggested_routes": [
+      "Metadata-Only Intake (No Transcript)"
+    ],
+    "route_reason": "No transcript supplied in package (transcript=null). Source-reported is_connected=False, is_conversation=False, observed_outcome=unresponsive.",
+    "summary": "Metadata-only call record (21s duration, talk_time=21s). Transcript text is null in this extract. A missing transcript does not prove no conversation occurred, nor is stored classification ground truth.",
+    "evidence": [
+      {
+        "ref": "B08 (77350513-913c-5fed-b4e6-71009de9df03)",
+        "quote": "[No supplied transcript text. Metadata: duration_seconds=21, is_connected=False, observed_outcome=unresponsive]"
+      }
+    ],
+    "not_established": "Cannot verify conversation substance, speaker intent, or next steps without transcript text. Refusing to invent substantive analysis.",
+    "next_steps": "Log activity in rep volume counts; require human check only if rep flags an active deal in CRM.",
+    "owner": "Leela",
+    "label_audit": "Unverified upstream metadata: is_connected=False, is_conversation=False, summary_status=stored."
+  },
+  "source_record": {
+    "record_ref": "B08",
+    "source_type": "call",
+    "source_id": "77350513-913c-5fed-b4e6-71009de9df03",
+    "payload": {
+      "id": "77350513-913c-5fed-b4e6-71009de9df03",
+      "external_call_id": "EXT-00008",
+      "workspace_slug": "workspace-02",
+      "rep_email": "leela@example.com",
+      "rep_name": "Leela",
+      "rep_user_id": null,
+      "direction": "inbound",
+      "direction_raw": "inbound",
+      "from_number": "PHONE-003",
+      "to_number": "PHONE-004",
+      "started_at": "2026-08-21T18:26:51Z",
+      "duration_seconds": 21,
+      "talk_time_seconds": 21,
+      "speaker_count": 1,
+      "segment_count": 1,
+      "is_connected": false,
+      "is_conversation": false,
+      "observed_outcome": "unresponsive",
+      "classification_reason": null,
+      "classification_status": "stored",
+      "is_campaign_call": false,
+      "first_dial_ever": true,
+      "first_connect_ever": false,
+      "prior_dials_ever": 0,
+      "prior_connects_ever": 13,
+      "summary": null,
+      "summary_status": "stored",
+      "transcript": null
+    },
+    "transcript_payload": null,
+    "applied_revision": 1
+  }
+}
